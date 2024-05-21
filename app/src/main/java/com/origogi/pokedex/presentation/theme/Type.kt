@@ -1,4 +1,4 @@
-package com.origogi.pokedex.ui.theme
+package com.origogi.pokedex.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

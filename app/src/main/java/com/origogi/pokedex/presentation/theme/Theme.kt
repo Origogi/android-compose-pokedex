@@ -1,4 +1,4 @@
-package com.origogi.pokedex.ui.theme
+package com.origogi.pokedex.presentation.theme
 
 import android.app.Activity
 import android.os.Build
