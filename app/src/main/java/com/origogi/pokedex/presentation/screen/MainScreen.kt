@@ -7,16 +7,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.origogi.pokedex.presentation.components.BottomNavigationBar
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 
 @Composable
 fun MainScreen() {
-    Scaffold {
-        Surface(Modifier.padding(it)) {
-            Text(text = " Hello Pokedex!")
-
+    Scaffold(
+        content = {
+            Surface(
+                modifier = Modifier.padding(it),
+            ) {
+                Text("Hello Pokedex")
+            }
+        },
+        bottomBar = {
+             BottomNavigationBar()
         }
-    }
+    )
 }
 
 @Preview
