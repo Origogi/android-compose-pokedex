@@ -32,9 +32,8 @@ val Typography = Typography(
     ),
     labelSmall = TextStyle(
         fontFamily = fontFamily,
-        fontWeight = FontWeight.Thin,
-        fontSize = 30.sp,
-
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
     )
 
     /* Other default text styles to override
