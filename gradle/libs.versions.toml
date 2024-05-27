@@ -10,7 +10,7 @@ activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 navigationRuntimeKtx = "2.7.7"
 navigationCompose = "2.7.7"
-hilt = "2.44"
+hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0" # Hilt Navigation Compose 버전 추가
 coil = "2.6.0"
 

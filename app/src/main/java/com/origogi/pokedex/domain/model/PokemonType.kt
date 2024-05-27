@@ -1,4 +1,4 @@
-package com.origogi.pokedex.domain
+package com.origogi.pokedex.domain.model
 
 import androidx.compose.ui.graphics.Color
 import com.origogi.pokedex.R
@@ -133,4 +133,11 @@ sealed class PokemonType(
         bgColor = Color(0xFFECF1F3),
         label = "Steel"
     )
+
+    companion object {
+        val values = listOf(
+            Fire, Water, Grass, Electric, Psychic, Ice, Dragon, Dark, Fairy,
+            Normal, Fighting, Flying, Poison, Ground, Rock, Bug, Ghost, Steel
+        )
+    }
 }

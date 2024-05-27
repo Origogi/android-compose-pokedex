@@ -31,10 +31,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.origogi.pokedex.domain.PokemonCardInfo
-import com.origogi.pokedex.domain.PokemonType
-import com.origogi.pokedex.domain.mainType
-import com.origogi.pokedex.domain.pokedexIdString
+import com.origogi.pokedex.domain.model.PokemonCardInfo
+import com.origogi.pokedex.domain.model.PokemonType
+import com.origogi.pokedex.domain.model.mainType
+import com.origogi.pokedex.domain.model.pokedexIdString
 import com.origogi.pokedex.presentation.theme.Black800
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark

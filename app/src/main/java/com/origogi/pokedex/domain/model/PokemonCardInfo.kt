@@ -1,4 +1,4 @@
-package com.origogi.pokedex.domain
+package com.origogi.pokedex.domain.model
 
 data class PokemonCardInfo(
     val pokedexId : Int,
