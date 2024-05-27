@@ -1,6 +1,5 @@
 package com.origogi.pokedex.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,8 +9,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.googlefonts.GoogleFont
-import com.origogi.pokedex.R
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,

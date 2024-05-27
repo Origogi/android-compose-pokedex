@@ -11,7 +11,9 @@ composeBom = "2023.08.00"
 navigationRuntimeKtx = "2.7.7"
 navigationCompose = "2.7.7"
 hilt = "2.44"
+hiltNavigationCompose = "1.2.0" # Hilt Navigation Compose 버전 추가
 coil = "2.6.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +35,8 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 # Hilt 라이브러리 추가
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 [plugins]

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+
     kotlin("kapt")
 }
 
@@ -63,7 +64,14 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+
+    // Coil 종속성 추가
     implementation(libs.coil.compose)
+
+    // Hilt 종속성 추가
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -72,9 +80,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // Hilt 종속성 추가
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+
 
 
 }
