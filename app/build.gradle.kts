@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
-
+    alias(libs.plugins.kotlinx.serialization)
     kotlin("kapt")
 }
 
@@ -72,6 +72,13 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    // Kotlinx Serialization 종속성 추가
+    implementation(libs.kotlinx.serialization.json)
+
+    // Retrofit 종속성 추가
+    implementation(libs.bundles.retrofitBundle)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

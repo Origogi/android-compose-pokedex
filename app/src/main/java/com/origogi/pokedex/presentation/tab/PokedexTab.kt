@@ -10,14 +10,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.origogi.pokedex.domain.model.PokemonCardInfo
+import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.presentation.components.PokemonCard
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.viewmodel.PokedexTabViewModel
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.origogi.pokedex.data.repository.FakePokemonCardInfoListRepositoryImpl
-import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.domain.model.PokemonType
-import com.origogi.pokedex.domain.usecase.GetPokemonCardInfoListUseCase
 
 @Composable
 fun PokedexTab(

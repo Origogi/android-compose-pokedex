@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.PokemonType
-import com.origogi.pokedex.domain.repository.PokemonCardInfoListRepository
 import com.origogi.pokedex.domain.usecase.GetPokemonCardInfoListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,19 +18,21 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class PokedexTabViewModel @Inject constructor(
-//    private val repository: PokemonCardInfoListRepository
     private val useCase: GetPokemonCardInfoListUseCase
 ) :
     ViewModel() {
+
+    companion object {
+        private const val PAGE_SIZE = 20
+    }
+
     private val fetchPage: MutableStateFlow<Int> = MutableStateFlow(0)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val list: StateFlow<List<PokemonCardInfo>> = fetchPage.flatMapLatest { page ->
-        println("PokedexTabViewModel.list")
-        useCase.execute(page)
-//        repository.list(page)
+        useCase.execute(offset = page * PAGE_SIZE + 1, limit = PAGE_SIZE - 1)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

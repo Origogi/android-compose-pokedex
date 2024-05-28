@@ -1,22 +1,41 @@
 package com.origogi.pokedex.domain.usecase
 
 import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.domain.repository.PokemonCardInfoListRepository
+import com.origogi.pokedex.domain.repository.PokemonDetailInfoRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetPokemonCardInfoListUseCase @Inject constructor(
-    private val pokemonCardInfoListRepository: PokemonCardInfoListRepository
+    private val repository: PokemonDetailInfoRepository
 ) {
 
-    companion object {
-        const val LIMIT = 20
-    }
+    suspend fun execute(offset: Int, limit: Int): Flow<List<PokemonCardInfo>> =
+        flow {
+            val list = mutableListOf<PokemonCardInfo>()
 
-    suspend fun execute(page: Int): Flow<List<PokemonCardInfo>> =
-        pokemonCardInfoListRepository.list(
-            offset = page * LIMIT,
-            limit = LIMIT
-        )
+            (offset..offset + limit).asFlow()
+                .flatMapMerge {
+                    repository.getPokemonDetailInfo(it)
+                }
+                .collect { detailInfo ->
+                    list.add(
+                        PokemonCardInfo(
+                            pokedexId = detailInfo.pokedexId,
+                            name = detailInfo.name,
+                            imageUrl = detailInfo.imageUrl,
+                            types = detailInfo.types
+                        )
+                    )
+                }
+
+            list.sortBy {
+                it.pokedexId
+            }
+            emit(list)
+        }
 }
