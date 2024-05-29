@@ -8,3 +8,7 @@ data class PokemonDetailInfo(
     val height : Int,
     val weight : Int,
 )
+
+// main type
+val PokemonDetailInfo.mainType : PokemonType
+    get() = types.first()

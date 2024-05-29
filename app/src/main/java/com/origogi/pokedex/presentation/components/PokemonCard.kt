@@ -86,46 +86,14 @@ fun PokemonCard(pokemonCardInfo: PokemonCardInfo) {
                 contentAlignment = Alignment.Center
             ) {
 
-                Image(
-                    painter = painterResource(id = pokemonCardInfo.mainType.iconAssetId),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(94.dp)
-                        .drawWithContent {
-                            with(drawContext.canvas.nativeCanvas) {
-                                val checkPoint = saveLayer(null, null)
-
-                                val brush = Brush.linearGradient(
-                                    colors = listOf(
-                                        Color.White,
-                                        pokemonCardInfo.mainType.color
-                                    ),
-                                    start = Offset.Zero,
-                                    end = Offset(size.width, size.height)
-                                )
-
-                                // Destination
-                                drawContent()
-
-                                // Source
-                                drawRect(
-                                    brush = brush,
-                                    blendMode = BlendMode.SrcIn
-                                )
-
-                                restoreToCount(checkPoint)
-
-                            }
-                        },
-
-                    )
+                PokemonTypeIcon(type = pokemonCardInfo.mainType, modifier = Modifier.size(96.dp))
 
                 AsyncImage(
                     model = pokemonCardInfo.imageUrl,
                     contentDescription = "",
                     modifier = Modifier.size(94.dp),
 
-                )
+                    )
             }
         }
     }

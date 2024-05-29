@@ -67,6 +67,7 @@ dependencies {
 
     // Coil 종속성 추가
     implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
 
     // Hilt 종속성 추가
     implementation(libs.hilt.android)
