@@ -14,13 +14,17 @@ class GetPokemonCardInfoListUseCase @Inject constructor(
     private val repository: PokemonDetailInfoRepository
 ) {
 
-    suspend fun execute(offset: Int, limit: Int): Flow<List<PokemonCardInfo>> =
+    companion object {
+        private const val PAGE_SIZE = 20
+    }
+
+    suspend fun execute(page : Int): Flow<List<PokemonCardInfo>> =
         flow {
             val list = mutableListOf<PokemonCardInfo>()
 
-            (offset..offset + limit).asFlow()
-                .flatMapMerge {
-                    repository.getPokemonDetailInfo(it)
+            (((page -1) * PAGE_SIZE + 1)..page * PAGE_SIZE).asFlow()
+                .flatMapMerge { pokedexId ->
+                    repository.getPokemonDetailInfo(pokedexId)
                 }
                 .collect { detailInfo ->
                     list.add(

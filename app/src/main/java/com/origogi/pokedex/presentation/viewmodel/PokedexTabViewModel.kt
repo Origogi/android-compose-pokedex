@@ -1,12 +1,8 @@
 package com.origogi.pokedex.presentation.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.usecase.GetPokemonCardInfoListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,9 +10,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+enum class ViewModelState {
+    Loading,
+    Idle,
+}
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -25,17 +27,32 @@ class PokedexTabViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    companion object {
-        private const val PAGE_SIZE = 20
+    private val fetchPage: MutableStateFlow<Int> = MutableStateFlow(1)
+
+    val state = MutableStateFlow(ViewModelState.Idle)
+
+    // list는 누적된 값을 유지함
+    val list: StateFlow<List<PokemonCardInfo>> = fetchPage
+        .onEach {
+            state.emit(ViewModelState.Loading)
+        }
+        .flatMapLatest { page ->
+            useCase.execute(page)
+        }
+        .scan(emptyList<PokemonCardInfo>()) { acc, list ->
+            acc + list
+        }.onEach {
+            state.emit(ViewModelState.Idle)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList(),
+        )
+
+    fun loadMore() {
+        if (state.value == ViewModelState.Idle) {
+            fetchPage.value += 1
+        }
     }
-
-    private val fetchPage: MutableStateFlow<Int> = MutableStateFlow(0)
-
-    val list: StateFlow<List<PokemonCardInfo>> = fetchPage.flatMapLatest { page ->
-        useCase.execute(offset = page * PAGE_SIZE + 1, limit = PAGE_SIZE - 1)
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList(),
-    )
 }

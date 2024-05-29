@@ -9,6 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -17,9 +19,7 @@ class PokemonDetailInfoRepositoryImpl @Inject constructor(
 ) : PokemonDetailInfoRepository {
     override suspend fun getPokemonDetailInfo(id: Int): Flow<PokemonDetailInfo> = flow {
 
-        val data = withContext(Dispatchers.IO) {
-            pokedexApiClient.fetchPokemonData(id.toString())
-        }
+        val data = pokedexApiClient.fetchPokemonData(id.toString())
 
         val detailInfo = PokemonDetailInfo(
             pokedexId = data.id,
@@ -32,9 +32,11 @@ class PokemonDetailInfoRepositoryImpl @Inject constructor(
             weight = 0
         )
         emit(detailInfo)
-    }.catch { e ->
-        e.printStackTrace()
-
     }
-
+    .catch { e ->
+        e.printStackTrace()
+    }
+    .flowOn(
+        Dispatchers.IO
+    )
 }
