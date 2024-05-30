@@ -1,9 +1,5 @@
 package com.origogi.pokedex.presentation.tab
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,16 +13,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,7 +33,6 @@ fun PokedexTab(
     viewModel: PokedexTabViewModel = hiltViewModel()
 ) {
 
-    val list by viewModel.list.collectAsState()
 
     val listState = rememberLazyListState()
 
@@ -52,7 +40,7 @@ fun PokedexTab(
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull() }
             .collect { lastVisibleItem ->
                 lastVisibleItem?.let {
-                    val listSize = viewModel.list.value.size
+                    val listSize = viewModel.list.size
                     if (it.index == listSize - 1) {
                         viewModel.loadMore()
                     }
@@ -60,7 +48,7 @@ fun PokedexTab(
             }
     }
 
-    Body(modifier = modifier, pokemonCardInfoList = list, listState = listState)
+    Body(modifier = modifier, pokemonCardInfoList = viewModel.list, listState = listState)
 
 }
 
