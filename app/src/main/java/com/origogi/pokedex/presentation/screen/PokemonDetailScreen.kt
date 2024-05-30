@@ -1,6 +1,13 @@
 package com.origogi.pokedex.presentation.screen
 
 import android.os.Build.VERSION.SDK_INT
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,9 +36,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,7 +55,6 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
-import com.origogi.pokedex.domain.model.PokemonInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
 import com.origogi.pokedex.extenstion.PokedexIdString
@@ -65,9 +74,15 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
     Box(
         Modifier
             .fillMaxSize()
-            .background(Color.White)) {
-        if (pokemonInfo != null) {
-            Body(info = pokemonInfo!!)
+            .background(Color.White)
+    ) {
+        // Crossfade
+        Crossfade(targetState = pokemonInfo, label = "") { info ->
+            if (info == null) {
+                PokemonDetailPlaceholder()
+            } else {
+                Body(info)
+            }
         }
     }
 
@@ -75,7 +90,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 
 @Composable
 private fun Body(info: PokemonDetailInfo) {
-    Column{
+    Column {
         PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
         Column(
@@ -245,11 +260,11 @@ private fun PokemonGifImage(modifier: Modifier = Modifier, imageUrl: String) {
 }
 
 @Composable
-private fun PokemonTypeBackground(color: Color) {
+private fun PokemonTypeBackground(modifier: Modifier = Modifier, color: Color) {
     Canvas(
-        modifier = Modifier
+        modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.Transparent)
     ) {
 
 
@@ -268,8 +283,115 @@ private fun PokemonTypeBackground(color: Color) {
     }
 }
 
+@Composable
+fun PokemonDetailPlaceholder() {
+
+    val transition = rememberInfiniteTransition(label = "")
+    val shimmerTranslateAnim = transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1000f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ), label = ""
+    )
+
+    Column(
+        Modifier.drawWithContent {
+            with(drawContext.canvas.nativeCanvas) {
+                val checkPoint = saveLayer(null, null)
+
+                val shimmerBrush = androidx.compose.ui.graphics.Brush.linearGradient(
+                    colors = listOf(
+                        Color.LightGray.copy(alpha = 0.9f),
+                        Color.LightGray.copy(alpha = 0.3f),
+                        Color.LightGray.copy(alpha = 0.9f)
+                    ),
+                    start = Offset(
+                        shimmerTranslateAnim.value - 200f,
+                        shimmerTranslateAnim.value - 200f
+                    ),
+                    end = Offset(shimmerTranslateAnim.value, shimmerTranslateAnim.value)
+                )
+
+                // Destination
+                drawContent()
+
+                // Source
+                drawRect(
+                    brush = shimmerBrush,
+                    blendMode = androidx.compose.ui.graphics.BlendMode.SrcIn
+                )
+
+                restoreToCount(checkPoint)
+
+            }
+        },
+
+        ) {
+        Box(modifier = Modifier.height(290.dp)) {
+            PokemonTypeBackground(
+                modifier = Modifier,
+                color = Color.LightGray
+            )
+        }
+
+        Column(Modifier.padding(16.dp)) {
+            Box(
+                Modifier
+                    .size(width = 200.dp, height = 40.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Box(
+                Modifier
+                    .size(width = 70.dp, height = 22.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row {
+                Box(
+                    Modifier
+                        .size(width = 110.dp, height = 36.dp)
+                        .background(Color.LightGray, shape = RoundedCornerShape(67.dp))
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(
+                    Modifier
+                        .size(width = 110.dp, height = 36.dp)
+                        .background(Color.LightGray, shape = RoundedCornerShape(67.dp))
+                )
+
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+            )
+
+
+        }
+
+
+    }
+}
 
 @Preview(showBackground = true)
+@Composable
+fun PreviewPokemonDetailPlaceholder() {
+    PokedexTheme {
+        PokemonDetailPlaceholder()
+    }
+}
+
+@Preview(showBackground = false)
 @Composable
 fun PreviewPokemonDetailScreen() {
     PokedexTheme {

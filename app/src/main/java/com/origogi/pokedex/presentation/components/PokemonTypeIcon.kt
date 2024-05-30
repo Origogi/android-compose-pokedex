@@ -1,7 +1,6 @@
 package com.origogi.pokedex.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
@@ -11,7 +10,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.origogi.pokedex.domain.model.PokemonType
 
 @Composable
@@ -20,7 +18,6 @@ fun PokemonTypeIcon(modifier: Modifier = Modifier, type : PokemonType) {
         painter = painterResource(id = type.iconAssetId),
         contentDescription = "",
         modifier = modifier
-//            .size(94.dp)
             .drawWithContent {
                 with(drawContext.canvas.nativeCanvas) {
                     val checkPoint = saveLayer(null, null)
