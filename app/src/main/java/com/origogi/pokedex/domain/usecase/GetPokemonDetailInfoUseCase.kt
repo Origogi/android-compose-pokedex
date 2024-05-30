@@ -4,29 +4,32 @@ import com.origogi.pokedex.data.repository.network.PokedexApiClient
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
 import com.origogi.pokedex.domain.model.PokemonInfo
 import com.origogi.pokedex.domain.model.PokemonType
+import com.origogi.pokedex.domain.repository.PokemonInfoRepository
+import com.origogi.pokedex.domain.repository.PokemonSpeciesInfoRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class GetPokemonDetailInfoUseCase @Inject constructor(
-    private val pokedexApiClient: PokedexApiClient
-){
-    suspend fun execute(id: Int) : Flow<PokemonDetailInfo> = flow {
-
-        emit(
-            PokemonDetailInfo(
-                pokedexId = 6,
-                name = "Bulbasaur",
-                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif",
-                types = listOf(
-                    PokemonType.Fire,
-                    PokemonType.Water
-                ),
-                height = 7.0,
-                weight = 69.0,
-                desc = "It is a small quadruped Pokémon that has blue fur with a white face and paws. It has rounded ears with pink insides, big blue eyes, and a small black nose. Its paws each have three toes, with the outer two being larger than the inner one. It also has a long, curled tail."
-            )
+    private val pokemonInfoRepository: PokemonInfoRepository,
+    private val pokemonSpeciesInfoRepository: PokemonSpeciesInfoRepository
+) {
+    suspend fun execute(id: Int): Flow<PokemonDetailInfo> = combine(
+        pokemonInfoRepository.get(id),
+        pokemonSpeciesInfoRepository.get(id)
+    ) { pokemonInfo, pokemonSpeciesInfo ->
+        PokemonDetailInfo(
+            pokedexId = pokemonInfo.pokedexId,
+            name = pokemonInfo.name,
+            imageUrl = pokemonInfo.imageUrl,
+            types = pokemonInfo.types,
+            height = pokemonInfo.height,
+            weight = pokemonInfo.weight,
+            desc = pokemonSpeciesInfo.desc,
+            animatedImageUrl = pokemonInfo.gifImageUrl
         )
     }
+
 }

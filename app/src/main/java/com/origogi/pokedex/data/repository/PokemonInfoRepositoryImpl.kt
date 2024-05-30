@@ -23,6 +23,7 @@ class PokemonInfoRepositoryImpl @Inject constructor(
             pokedexId = data.id,
             name = data.name,
             imageUrl = data.sprites.frontDefault,
+            gifImageUrl = data.sprites.other.showdown.frontDefault,
             types = data.types.map {
                 PokemonType.valueOf(it.type.name.capitalizeFirstChar())
             },

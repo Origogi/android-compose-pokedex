@@ -62,15 +62,21 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 
     val pokemonInfo by viewModel.pokemonInfo.collectAsState()
 
-    if (pokemonInfo != null) {
-        Body(info = pokemonInfo!!)
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color.White)) {
+        if (pokemonInfo != null) {
+            Body(info = pokemonInfo!!)
+        }
     }
+
 }
 
 @Composable
 private fun Body(info: PokemonDetailInfo) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        PokemonImage(imageUrl = info.imageUrl, type = info.mainType)
+    Column{
+        PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
         Column(
             modifier = Modifier
@@ -95,9 +101,10 @@ private fun Body(info: PokemonDetailInfo) {
 
             Text(
                 text = info.desc,
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.Black.copy(alpha = 0.7f),
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Black.copy(alpha = 0.7f)
             )
+
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -212,8 +219,8 @@ private fun PokemonGifImage(modifier: Modifier = Modifier, imageUrl: String) {
                     val oWidth = it.intrinsicWidth.dp
                     val oHeight = it.intrinsicHeight.dp
 
-                    val targetImageWidth = (oWidth * 3.5f).coerceAtMost(400f.dp)
-                    val targetImageHeight = (oHeight * 3.5f).coerceAtMost(400f.dp)
+                    val targetImageWidth = (oWidth * 2.5f).coerceAtMost(400f.dp)
+                    val targetImageHeight = (oHeight * 2.5f).coerceAtMost(400f.dp)
 
                     withContext(Dispatchers.Main) {
                         targetImageSize = DpSize(targetImageWidth, targetImageHeight)
@@ -271,6 +278,8 @@ fun PreviewPokemonDetailScreen() {
                 pokedexId = 6,
                 name = "Bulbasaur",
                 imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif",
+                animatedImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif",
+
                 types = listOf(
                     PokemonType.Fire,
                     PokemonType.Water
