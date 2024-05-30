@@ -9,6 +9,3 @@ data class PokemonCardInfo(
 
 val PokemonCardInfo.mainType : PokemonType
     get() = types.first()
-
-val PokemonCardInfo.pokedexIdString : String
-    get() = "Nº${pokedexId.toString().padStart(3, '0')}"

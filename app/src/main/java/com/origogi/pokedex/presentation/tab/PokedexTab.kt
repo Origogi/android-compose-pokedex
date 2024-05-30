@@ -4,6 +4,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +33,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.presentation.components.PokemonCard
+import com.origogi.pokedex.presentation.router.LocalNavScreenController
+import com.origogi.pokedex.presentation.router.NavRoutes
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.viewmodel.PokedexTabViewModel
 
@@ -68,6 +71,7 @@ private fun Body(
     listState: LazyListState = LazyListState()
 ) {
 
+    val navController = LocalNavScreenController.current
 
     Box(
         modifier
@@ -93,6 +97,9 @@ private fun Body(
                 Box(
                     Modifier
                         .padding(vertical = 8.dp)
+                        .clickable {
+                            navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
+                        }
 //                        .graphicsLayer {
 //                            lapVisible = true
 //                            alpha = animatedLapAlpha

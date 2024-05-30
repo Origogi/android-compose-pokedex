@@ -8,3 +8,7 @@ fun String.capitalizeFirstChar(): String {
         if (it.isLowerCase()) it.titlecase() else it.toString()
     }
 }
+
+fun Int.PokedexIdString(): String {
+    return "Nº${this.toString().padStart(3, '0')}"
+}

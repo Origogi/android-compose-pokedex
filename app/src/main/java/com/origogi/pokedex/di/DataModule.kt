@@ -1,9 +1,9 @@
 package com.origogi.pokedex.di
 
 
-import com.origogi.pokedex.data.repository.PokemonDetailInfoRepositoryImpl
+import com.origogi.pokedex.data.repository.PokemonInfoRepositoryImpl
 import com.origogi.pokedex.data.repository.network.PokedexApiClient
-import com.origogi.pokedex.domain.repository.PokemonDetailInfoRepository
+import com.origogi.pokedex.domain.repository.PokemonInfoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,8 @@ import javax.inject.Singleton
 object DataModule {
     @Provides
     @Singleton
-    fun providePokemonDetailInfoRepository(client : PokedexApiClient): PokemonDetailInfoRepository {
-        return PokemonDetailInfoRepositoryImpl(
+    fun providePokemonDetailInfoRepository(client : PokedexApiClient): PokemonInfoRepository {
+        return PokemonInfoRepositoryImpl(
             client
         )
     }

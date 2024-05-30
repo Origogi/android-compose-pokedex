@@ -1,7 +1,7 @@
 package com.origogi.pokedex.domain.usecase
 
 import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.domain.repository.PokemonDetailInfoRepository
+import com.origogi.pokedex.domain.repository.PokemonInfoRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetPokemonCardInfoListUseCase @Inject constructor(
-    private val repository: PokemonDetailInfoRepository
+    private val repository: PokemonInfoRepository
 ) {
 
     companion object {
@@ -24,7 +24,7 @@ class GetPokemonCardInfoListUseCase @Inject constructor(
 
             (((page -1) * PAGE_SIZE + 1)..page * PAGE_SIZE).asFlow()
                 .flatMapMerge { pokedexId ->
-                    repository.getPokemonDetailInfo(pokedexId)
+                    repository.get(pokedexId)
                 }
                 .collect { detailInfo ->
                     list.add(

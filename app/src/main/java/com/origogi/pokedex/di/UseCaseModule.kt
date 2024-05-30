@@ -1,12 +1,10 @@
 package com.origogi.pokedex.di
 
-import com.origogi.pokedex.domain.repository.PokemonDetailInfoRepository
+import com.origogi.pokedex.domain.repository.PokemonInfoRepository
 import com.origogi.pokedex.domain.usecase.GetPokemonCardInfoListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -17,7 +15,7 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideGetPokemonCardInfoListUseCase(
-        repository: PokemonDetailInfoRepository
+        repository: PokemonInfoRepository
     ): GetPokemonCardInfoListUseCase {
         return GetPokemonCardInfoListUseCase(repository)
     }

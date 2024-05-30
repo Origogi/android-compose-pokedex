@@ -8,7 +8,10 @@ data class PokemonData(
     val id : Int,
     val name : String,
     val types : List<PokemonTypeData>,
-    val sprites : PokemonSpritesData
+    val sprites : PokemonSpritesData,
+    val abilities : List<PokemonAbilityData>,
+    val weight : Double,
+    val height : Double
 )
 @Serializable
 data class PokemonTypeData(
@@ -21,4 +24,9 @@ data class PokemonSpritesData(
 
     @SerialName(value = "front_default")
     val frontDefault : String
+)
+
+@Serializable
+data class PokemonAbilityData(
+    val ability : NameUrlData
 )

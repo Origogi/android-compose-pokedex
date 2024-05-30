@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.origogi.pokedex.presentation.router.LocalNavScreenController
+import com.origogi.pokedex.presentation.router.NavRoutes
 import com.origogi.pokedex.presentation.screen.MainScreen
+import com.origogi.pokedex.presentation.screen.PokemonDetailScreen
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +23,32 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PokedexTheme {
-                MainScreen()
+                MyApp()
             }
+        }
+    }
+}
+
+@Composable
+private fun MyApp() {
+    val navController = rememberNavController()
+
+    CompositionLocalProvider(LocalNavScreenController provides navController) {
+        MyNavHost()
+    }
+
+}
+
+@Composable
+fun MyNavHost() {
+    val navController = LocalNavScreenController.current
+
+    NavHost(navController = navController, startDestination = NavRoutes.Home.route) {
+        composable(NavRoutes.Home.route) {
+            MainScreen()
+        }
+        composable(NavRoutes.PokemonDetail.route + "/{pokedexId}") {
+            PokemonDetailScreen()
         }
     }
 }

@@ -1,14 +1,14 @@
 package com.origogi.pokedex.domain.model
 
-data class PokemonDetailInfo(
+data class PokemonInfo(
     val pokedexId : Int,
     val name : String,
     val imageUrl : String,
     val types : List<PokemonType>,
     val height : Double,
     val weight : Double,
-    val desc : String
 )
 
-val PokemonDetailInfo.mainType : PokemonType
+// main type
+val PokemonInfo.mainType : PokemonType
     get() = types.first()
