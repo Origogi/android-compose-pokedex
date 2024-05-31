@@ -14,6 +14,9 @@ val Pink40 = Color(0xFF7D5260)
 val DeepSkyBlue = Color(0xFF173EA5)
 val Black800 = Color(0xFF333333)
 
+val Male = Color(0xFF2441C3)
+val Female = Color(0xFFFF7596)
+
 fun Color.isDark(): Boolean {
     val luminance = this.luminance()
     return luminance < 0.5

@@ -125,7 +125,8 @@ fun PokemonStatusGroupPreview() {
             weight = 69.0,
             desc = "It is a small quadruped Pokémon that has blue fur with a white face and paws. It has rounded ears with pink insides, big blue eyes, and a small black nose. Its paws each have three toes, with the outer two being larger than the inner one. It also has a long, curled tail.",
             abilities = listOf("Blaze", "Solar Power"),
-            category = "Lizard Pokémon"
+            category = "Lizard Pokémon",
+            genderRatio = 0.875,
         )
     )
 }

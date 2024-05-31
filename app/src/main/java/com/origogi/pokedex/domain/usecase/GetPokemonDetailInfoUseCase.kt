@@ -26,7 +26,8 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
             desc = pokemonSpeciesInfo.desc,
             animatedImageUrl = pokemonInfo.gifImageUrl,
             abilities = pokemonInfo.abilities.map { formatSpeciesName(it) }.toList(),
-            category = pokemonSpeciesInfo.category
+            category = pokemonSpeciesInfo.category,
+            genderRatio = pokemonSpeciesInfo.genderRate
         )
     }
 

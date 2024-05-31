@@ -17,10 +17,17 @@ class PokemonSpeciesInfoRepositoryImpl @Inject constructor(
         val speciesData = pokedexApiClient.fetchPokemonSpeciesData(id.toString())
         val desc = speciesData.getEnglishFlavorText().replace("\n", " ")
         val category = parseCategory(speciesData.getEnglishGenusText())
+        val genderRate = speciesData.genderRate.let { ratio ->
+            when (ratio) {
+                -1 -> null
+                else -> (8 - ratio.toDouble()) / 8
+            }
+        }
 
         emit(PokemonSpeciesInfo(
             desc = desc,
-            category = category
+            category = category,
+            genderRate = genderRate
         ))
     }
 
