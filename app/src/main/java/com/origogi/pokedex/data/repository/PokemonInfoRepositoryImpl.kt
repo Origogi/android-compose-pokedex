@@ -1,6 +1,5 @@
 package com.origogi.pokedex.data.repository
 
-import com.origogi.pokedex.data.dto.getEnglishFlavorText
 import com.origogi.pokedex.data.repository.network.PokedexApiClient
 import com.origogi.pokedex.domain.model.PokemonInfo
 import com.origogi.pokedex.domain.model.PokemonType
@@ -21,7 +20,7 @@ class PokemonInfoRepositoryImpl @Inject constructor(
         val data = pokedexApiClient.fetchPokemonData(id.toString())
         val info = PokemonInfo(
             pokedexId = data.id,
-            name = data.name,
+            name = data.name.capitalizeFirstChar(),
             imageUrl = data.sprites.frontDefault,
             gifImageUrl = data.sprites.other.showdown.frontDefault,
             types = data.types.map {
@@ -29,6 +28,7 @@ class PokemonInfoRepositoryImpl @Inject constructor(
             },
             height = data.height,
             weight = data.weight,
+            abilities = data.abilities.map { it.ability.name }
         )
         emit(info)
     }

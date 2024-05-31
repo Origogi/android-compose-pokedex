@@ -22,10 +22,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -92,47 +95,58 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 
 @Composable
 private fun Body(info: PokemonDetailInfo) {
-    Column {
-        PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
+
+    Scaffold(modifier = Modifier) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(top = 16.dp)
+                .fillMaxSize()
+                .padding(bottom = it.calculateBottomPadding())
+                .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                text = info.name,
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Text(
-                text = info.pokedexId.PokedexIdString(),
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.Black.copy(alpha = 0.7f)
-            )
+            PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
+            ) {
+                Text(
+                    text = info.name,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Text(
+                    text = info.pokedexId.PokedexIdString(),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.Black.copy(alpha = 0.7f)
+                )
 
-            PokemonTypesRow(types = info.types)
+                Spacer(modifier = Modifier.height(24.dp))
 
-            Spacer(modifier = Modifier.height(24.dp))
+                PokemonTypesRow(types = info.types)
 
-            Text(
-                text = info.desc,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Black.copy(alpha = 0.7f)
-            )
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Text(
+                    text = info.desc,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Black.copy(alpha = 0.7f)
+                )
 
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            Divider(color = Color.Black.copy(alpha = 0.05f))
-            Spacer(modifier = Modifier.height(20.dp))
+                Divider(color = Color.Black.copy(alpha = 0.05f))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            PokemonStatusGroup(info)
+                PokemonStatusGroup(info)
+
+
+            }
+
+            // PokemonHeight
+            // PokemonWeight
         }
-
-        // PokemonHeight
-        // PokemonWeight
     }
 }
 
@@ -387,7 +401,6 @@ fun PokemonDetailPlaceholder() {
 
     }
 }
-
 
 
 @Preview(showBackground = true)

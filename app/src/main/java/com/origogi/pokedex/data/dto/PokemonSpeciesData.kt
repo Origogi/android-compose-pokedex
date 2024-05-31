@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PokemonSpeciesData(
     @SerialName(value = "flavor_text_entries")
-    val flavorTextEntries : List<FlavorTextEntry>
+    val flavorTextEntries : List<FlavorTextEntry>,
+    val genera : List<GeneraData>
 )
 
 @Serializable
@@ -16,6 +17,18 @@ data class FlavorTextEntry(
     val flavorText : String,
     val language : NameUrlData
 )
+
+@Serializable
+data class GeneraData(
+    val genus : String,
+    val language : NameUrlData
+)
+
+fun PokemonSpeciesData.getEnglishGenusText() : String {
+    return genera.first {
+        it.language.name == "en"
+    }.genus
+}
 
 fun PokemonSpeciesData.getEnglishFlavorText() : String {
     return flavorTextEntries.first {
