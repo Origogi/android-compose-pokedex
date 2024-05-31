@@ -7,4 +7,5 @@ class PokedexApiClient @Inject constructor(
 ){
     suspend fun fetchPokemonData(id: String) = pokedexApiService.getPokemonData(id)
     suspend fun fetchPokemonSpeciesData(id: String) = pokedexApiService.getPokemonSpeciesData(id)
+    suspend fun fetchPokemonTypeDetailData(type: String) = pokedexApiService.getPokemonTypeDetailData(type)
 }

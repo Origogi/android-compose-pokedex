@@ -82,7 +82,6 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Crossfade
         Crossfade(targetState = pokemonInfo, label = "") { info ->
             if (info == null) {
                 PokemonDetailPlaceholder()
@@ -97,6 +96,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 @Composable
 private fun Body(info: PokemonDetailInfo) {
 
+    println(info.weaknessTypes)
 
     Scaffold(modifier = Modifier) {
         Column(
@@ -434,7 +434,8 @@ fun PreviewPokemonDetailScreen() {
                 desc = "It is a small quadruped Pokémon that has blue fur with a white face and paws. It has rounded ears with pink insides, big blue eyes, and a small black nose. Its paws each have three toes, with the outer two being larger than the inner one. It also has a long, curled tail.",
                 abilities = listOf("Blaze", "Solar Power"),
                 category = "Lizard Pokémon",
-                genderRatio = 0.5
+                genderRatio = 0.5,
+                weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric)
             )
         )
     }

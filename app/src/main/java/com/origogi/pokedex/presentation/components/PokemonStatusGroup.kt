@@ -127,6 +127,7 @@ fun PokemonStatusGroupPreview() {
             abilities = listOf("Blaze", "Solar Power"),
             category = "Lizard Pokémon",
             genderRatio = 0.875,
+            weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric)
         )
     )
 }
