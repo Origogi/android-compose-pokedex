@@ -4,12 +4,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-
 import androidx.compose.ui.unit.sp
 import com.origogi.pokedex.R
-
 
 
 val fontFamily = FontFamily(
@@ -37,6 +34,11 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 18.sp,
     ),
     labelSmall = TextStyle(
         fontFamily = fontFamily,

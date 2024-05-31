@@ -9,8 +9,15 @@ data class PokemonDetailInfo(
     val height : Double,
     val weight : Double,
     val desc : String,
-
+    val abilities : List<String>,
+    val category : String
     )
 
 val PokemonDetailInfo.mainType : PokemonType
     get() = types.first()
+
+val PokemonDetailInfo.heightString : String
+    get() = "${height / 10.0} m"
+
+val PokemonDetailInfo.weightString : String
+    get() = "${weight / 10.0} kg"

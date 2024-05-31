@@ -39,28 +39,28 @@ sealed class MainTabInfo(
     val label: String,
     val route: String
 ) {
-    object Pokedex : MainTabInfo(
+    data object Pokedex : MainTabInfo(
         iconOn = R.drawable.icon_pokedex_on,
         iconOff = R.drawable.icon_pokedex_off,
         label = "Pokedéx",
         route = "pokedex"
     )
 
-    object Region : MainTabInfo(
+    data object Region : MainTabInfo(
         iconOn = R.drawable.icon_region_on,
         iconOff = R.drawable.icon_region_off,
         label = "Region",
         route = "region"
     )
 
-    object Favorite : MainTabInfo(
+    data object Favorite : MainTabInfo(
         iconOn = R.drawable.icon_favorite_on,
         iconOff = R.drawable.icon_favorite_off,
         label = "Favorite",
         route = "favorite"
     )
 
-    object Profile : MainTabInfo(
+    data object Profile : MainTabInfo(
         iconOn = R.drawable.icon_profile_on,
         iconOff = R.drawable.icon_profile_off,
         label = "Profile",

@@ -1,15 +1,10 @@
 package com.origogi.pokedex.domain.usecase
 
-import com.origogi.pokedex.data.repository.network.PokedexApiClient
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
-import com.origogi.pokedex.domain.model.PokemonInfo
-import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.repository.PokemonInfoRepository
 import com.origogi.pokedex.domain.repository.PokemonSpeciesInfoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class GetPokemonDetailInfoUseCase @Inject constructor(
@@ -28,7 +23,9 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
             height = pokemonInfo.height,
             weight = pokemonInfo.weight,
             desc = pokemonSpeciesInfo.desc,
-            animatedImageUrl = pokemonInfo.gifImageUrl
+            animatedImageUrl = pokemonInfo.gifImageUrl,
+            abilities = listOf("test", "test2"),
+            category = "test"
         )
     }
 

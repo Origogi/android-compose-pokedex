@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,6 +59,7 @@ import com.origogi.pokedex.domain.model.PokemonDetailInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
 import com.origogi.pokedex.extenstion.PokedexIdString
+import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark
@@ -123,7 +125,10 @@ private fun Body(info: PokemonDetailInfo) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            Divider(color = Color.Black.copy(alpha = 0.05f))
+            Spacer(modifier = Modifier.height(20.dp))
 
+            PokemonStatusGroup(info)
         }
 
         // PokemonHeight
@@ -383,6 +388,8 @@ fun PokemonDetailPlaceholder() {
     }
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewPokemonDetailPlaceholder() {
@@ -391,7 +398,7 @@ fun PreviewPokemonDetailPlaceholder() {
     }
 }
 
-@Preview(showBackground = false)
+@Preview(showBackground = true)
 @Composable
 fun PreviewPokemonDetailScreen() {
     PokedexTheme {
@@ -408,9 +415,11 @@ fun PreviewPokemonDetailScreen() {
                 ),
                 height = 7.0,
                 weight = 69.0,
-                desc = "It is a small quadruped Pokémon that has blue fur with a white face and paws. It has rounded ears with pink insides, big blue eyes, and a small black nose. Its paws each have three toes, with the outer two being larger than the inner one. It also has a long, curled tail."
+                desc = "It is a small quadruped Pokémon that has blue fur with a white face and paws. It has rounded ears with pink insides, big blue eyes, and a small black nose. Its paws each have three toes, with the outer two being larger than the inner one. It also has a long, curled tail.",
+                abilities = listOf("Blaze", "Solar Power"),
+                category = "Lizard Pokémon"
             )
         )
     }
-
 }
+
