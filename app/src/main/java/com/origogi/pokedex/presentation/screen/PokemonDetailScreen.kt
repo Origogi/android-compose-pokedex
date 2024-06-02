@@ -75,7 +75,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.ceil
 
-private val TYPE_CHIP_HEIGHT = 36
+private const val TYPE_CHIP_HEIGHT = 36
 
 @Composable
 fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
@@ -87,7 +87,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Crossfade(targetState = pokemonInfo, label = "") { info ->
+        Crossfade(targetState = pokemonInfo, label = "", animationSpec = tween(1000)) { info ->
             if (info == null) {
                 PokemonDetailPlaceholder()
             } else {
