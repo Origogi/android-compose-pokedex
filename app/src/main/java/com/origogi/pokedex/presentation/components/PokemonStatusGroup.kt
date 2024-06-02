@@ -100,7 +100,8 @@ fun PokemonStatus(modifier: Modifier = Modifier, icon: Int, label: String, value
         ) {
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
-                text = value, style = MaterialTheme.typography.labelLarge,
+                text = value,
+                style = MaterialTheme.typography.labelLarge,
                 color = Color.Black.copy(alpha = 0.9f)
             )
         }

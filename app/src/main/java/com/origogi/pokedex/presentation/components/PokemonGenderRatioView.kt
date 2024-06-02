@@ -34,6 +34,8 @@ import java.text.DecimalFormat
 @Composable
 fun PokemonGenderRatioView(ratio: Double?) {
 
+
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text("Gender", style = MaterialTheme.typography.labelMedium)
         Spacer(modifier = Modifier.height(12.dp))
@@ -80,7 +82,7 @@ fun PokemonGenderRatioView(ratio: Double?) {
                     contentDescription = "",
                 )
                 Spacer(modifier = Modifier.width(3.dp))
-                GenderRatioText(ratio)
+                GenderRatioText(1.0 - ratio)
             }
         }
     }
@@ -93,7 +95,7 @@ fun GenderRatioText(ratio: Double) {
     val percentageText = decimalFormat.format(percentage)
 
     Text(
-        text = "$percentageText%",
+        text = "$percentageText%".replace(".",","),
         style = MaterialTheme.typography.labelMedium
     )
 }

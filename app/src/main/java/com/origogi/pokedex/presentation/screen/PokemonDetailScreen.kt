@@ -22,10 +22,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -71,6 +73,9 @@ import com.origogi.pokedex.presentation.viewmodel.PokemonDetailViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.ceil
+
+private val TYPE_CHIP_HEIGHT = 36
 
 @Composable
 fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
@@ -99,54 +104,64 @@ private fun Body(info: PokemonDetailInfo) {
     println(info.weaknessTypes)
 
     Scaffold(modifier = Modifier) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = it.calculateBottomPadding())
-                .verticalScroll(rememberScrollState())
         ) {
-            PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 16.dp)
-            ) {
-                Text(
-                    text = info.name,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Text(
-                    text = info.pokedexId.PokedexIdString(),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Black.copy(alpha = 0.7f)
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                PokemonTypesRow(types = info.types)
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Text(
-                    text = info.desc,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black.copy(alpha = 0.7f)
-                )
-
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Divider(color = Color.Black.copy(alpha = 0.05f))
-                Spacer(modifier = Modifier.height(20.dp))
-
-                PokemonStatusGroup(info)
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                PokemonGenderRatioView(ratio = info.genderRatio)
+            item {
+                PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
             }
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 16.dp)
+                ) {
+                    Text(
+                        text = info.name,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Text(
+                        text = info.pokedexId.PokedexIdString(),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Color.Black.copy(alpha = 0.7f)
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    PokemonTypesRow(types = info.types)
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Text(
+                        text = info.desc,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Black.copy(alpha = 0.7f)
+                    )
+
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Divider(color = Color.Black.copy(alpha = 0.05f))
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    PokemonStatusGroup(info)
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    PokemonGenderRatioView(ratio = info.genderRatio)
+
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    PokemonWeaknessTypesGrid(types = info.weaknessTypes)
+                }
+            }
+
+
 
             // PokemonHeight
             // PokemonWeight
@@ -166,13 +181,14 @@ fun PokemonTypesRow(types: List<PokemonType>) {
 }
 
 @Composable
-private fun PokemonTypeChip(type: PokemonType) {
+private fun PokemonTypeChip(modifier: Modifier = Modifier, type: PokemonType) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 type.color,
                 shape = RoundedCornerShape(67.dp)
             )
+            .height(TYPE_CHIP_HEIGHT.dp)
             .padding(horizontal = 16.dp, vertical = 4.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -197,6 +213,35 @@ private fun PokemonTypeChip(type: PokemonType) {
                 style = MaterialTheme.typography.labelMedium,
                 color = if (type.color.isDark()) Color.Black else Color.White,
             )
+        }
+    }
+}
+
+@Composable
+fun PokemonWeaknessTypesGrid(types: List<PokemonType>) {
+    val gridColumnCount = ceil((types.size / 2.0))
+    val itemsTotalSpacing = (12 * (gridColumnCount - 1))
+
+    val gridHeight = (TYPE_CHIP_HEIGHT * gridColumnCount) + itemsTotalSpacing
+
+    Column {
+        Text(
+            text = "Weakness",
+            style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyVerticalGrid(
+            modifier = Modifier.height(gridHeight.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            columns = GridCells.Fixed(2)
+        ) {
+            items(types) { type ->
+                PokemonTypeChip(type = type)
+            }
         }
     }
 }
@@ -436,6 +481,34 @@ fun PreviewPokemonDetailScreen() {
                 category = "Lizard Pokémon",
                 genderRatio = 0.5,
                 weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric)
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewWeaknessTypeChipsGrid() {
+    PokedexTheme {
+        PokemonWeaknessTypesGrid(
+            types = listOf(
+                PokemonType.Fire,
+                PokemonType.Water,
+                PokemonType.Electric,
+                PokemonType.Grass,
+                PokemonType.Poison,
+                PokemonType.Fighting,
+                PokemonType.Ground,
+                PokemonType.Flying,
+                PokemonType.Psychic,
+                PokemonType.Bug,
+                PokemonType.Rock,
+                PokemonType.Ghost,
+                PokemonType.Ice,
+                PokemonType.Dragon,
+                PokemonType.Dark,
+                PokemonType.Steel,
+                PokemonType.Fairy
             )
         )
     }

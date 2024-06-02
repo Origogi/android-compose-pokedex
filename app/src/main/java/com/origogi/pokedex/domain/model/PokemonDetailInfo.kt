@@ -19,7 +19,7 @@ val PokemonDetailInfo.mainType: PokemonType
     get() = types.first()
 
 val PokemonDetailInfo.heightString: String
-    get() = "${height / 10.0} m"
+    get() = "${height / 10.0} m".replace(".", ",")
 
 val PokemonDetailInfo.weightString: String
-    get() = "${weight / 10.0} kg"
+    get() = "${weight / 10.0} kg".replace(".", ",")
