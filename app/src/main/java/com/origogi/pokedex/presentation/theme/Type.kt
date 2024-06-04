@@ -22,6 +22,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 32.sp,
     ),
+    titleMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp,
+    ),
     titleSmall = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Medium,

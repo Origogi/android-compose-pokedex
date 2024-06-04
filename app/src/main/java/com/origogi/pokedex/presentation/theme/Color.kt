@@ -12,6 +12,9 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val DeepSkyBlue = Color(0xFF173EA5)
+
+val Black80 = Color(0xFFF2F2F2)
+val Black200 = Color(0xFFCCCCCC)
 val Black800 = Color(0xFF333333)
 
 val Male = Color(0xFF2441C3)
