@@ -8,7 +8,7 @@
   - [x] 약점 정보
   - [ ] 진화 정보
   - [x] 성별 분포 정보
-- [ ] Region Tab
+- [x] Region Tab
 - [ ] Favorite Tab
 - [ ] Favorite Pokemon Feature(Add Or Remove)
 - [ ] Profile Tab
