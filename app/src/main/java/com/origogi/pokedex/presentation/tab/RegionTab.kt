@@ -96,12 +96,15 @@ fun RegionCard(regionInfo: RegionInfo) {
                             Black800.copy(alpha = 0.8f),
                             Black800.copy(alpha = 0.15f)
                         ),
-
-                        )
+                    )
                 )
         )
-        Column(verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize().padding(start = 24.dp)) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 24.dp)
+        ) {
             Text(
                 text = regionInfo.regionName,
                 style = MaterialTheme.typography.titleMedium,

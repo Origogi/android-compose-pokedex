@@ -18,28 +18,38 @@ enum class ViewModelState {
 }
 
 @HiltViewModel
-class PokedexTabViewModel @Inject constructor(
+class PokemonCardListViewModel @Inject constructor(
     private val useCase: GetPokemonCardInfoListUseCase
 ) :
     ViewModel() {
 
-    private var fetchPage = 1
     private val state = MutableStateFlow(ViewModelState.Idle)
-
     var list by mutableStateOf<List<PokemonCardInfo>>(emptyList())
         private set
+
+    var needLoadMore by mutableStateOf(true)
+        private set
+
+    private val limit = 20
+    private var offset = 0
+
 
     init {
         loadMore()
     }
 
     fun loadMore() {
-        if (state.value == ViewModelState.Idle) {
+        if (state.value == ViewModelState.Idle && needLoadMore) {
             viewModelScope.launch {
                 state.value = ViewModelState.Loading
-                useCase.execute(fetchPage).collect {
-                    list = list + it
-                    fetchPage++
+                useCase.execute(offset, limit).collect {
+                    if (it.isEmpty()) {
+                        needLoadMore = false
+                    } else {
+                        list = list + it
+                        offset += limit
+                    }
+
                     state.value = ViewModelState.Idle
                 }
             }
