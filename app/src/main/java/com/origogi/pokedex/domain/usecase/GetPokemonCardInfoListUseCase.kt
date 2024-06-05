@@ -19,7 +19,7 @@ class GetPokemonCardInfoListUseCase @Inject constructor(
         flow {
             val list = mutableListOf<PokemonCardInfo>()
 
-            (offset + 1..offset+limit).asFlow()
+            (offset until offset + limit).asFlow()
                 .flatMapMerge { pokedexId ->
                     repository.get(pokedexId)
                 }

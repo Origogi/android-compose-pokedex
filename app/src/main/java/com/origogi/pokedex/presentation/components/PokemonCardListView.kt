@@ -27,7 +27,7 @@ fun PokemonCardListView(
     modifier: Modifier = Modifier,
     pokemonCardInfoList: List<PokemonCardInfo>,
     needLoadMore: Boolean,
-    onListEnd : () -> Unit = {},
+    onListEnd: () -> Unit = {},
 ) {
 
     val listState = rememberLazyListState()
@@ -58,7 +58,10 @@ fun PokemonCardListView(
                     Modifier
                         .padding(vertical = 8.dp)
                         .clickable {
-                            navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
+                            navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}") {
+
+//                                restoreState = true
+                            }
                         }
 //                        .graphicsLayer {
 //                            lapVisible = true
@@ -88,7 +91,7 @@ fun PokemonCardListView(
 }
 
 @Composable
-fun LoadingIndicator(onAppear : () -> Unit) {
+fun LoadingIndicator(onAppear: () -> Unit) {
     LaunchedEffect(Unit) {
         // 컴포저블이 처음 나타날 때 실행할 코드
         onAppear()

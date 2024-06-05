@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
-import com.origogi.pokedex.domain.model.PokemonInfo
 import com.origogi.pokedex.domain.usecase.GetPokemonDetailInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +22,7 @@ class PokemonDetailViewModel @Inject constructor(
     private val useCase: GetPokemonDetailInfoUseCase
 ) : ViewModel() {
 
-    val pokedexId = savedStateHandle.getStateFlow<String?>("pokedexId", null).map {
+    private val pokedexId = savedStateHandle.getStateFlow<String?>("pokedexId", null).map {
         it?.toIntOrNull()
     }
     val pokemonInfo: StateFlow<PokemonDetailInfo?> = pokedexId.filterNotNull().flatMapLatest { id ->

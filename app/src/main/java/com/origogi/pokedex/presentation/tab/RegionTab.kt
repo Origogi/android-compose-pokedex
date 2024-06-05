@@ -2,6 +2,7 @@ package com.origogi.pokedex.presentation.tab
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,8 +27,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.origogi.pokedex.domain.model.RegionInfo
+import com.origogi.pokedex.domain.model.RegionType
 import com.origogi.pokedex.domain.model.backgroundImageUrl
+import com.origogi.pokedex.presentation.router.LocalNavScreenController
+import com.origogi.pokedex.presentation.router.NavRoutes
 import com.origogi.pokedex.presentation.theme.Black200
 import com.origogi.pokedex.presentation.theme.Black80
 import com.origogi.pokedex.presentation.theme.Black800
@@ -62,7 +65,7 @@ fun RegionTab(
                     .verticalScroll(rememberScrollState())
             ) {
                 Spacer(modifier = Modifier.height(0.dp))
-                for (region in RegionInfo.entries) {
+                for (region in RegionType.entries) {
                     RegionCard(region)
                 }
                 Spacer(modifier = Modifier.height(0.dp))
@@ -72,14 +75,23 @@ fun RegionTab(
 }
 
 @Composable
-fun RegionCard(regionInfo: RegionInfo) {
+fun RegionCard(regionInfo: RegionType) {
     val painter = rememberAsyncImagePainter(regionInfo.backgroundImageUrl)
+
+    val navController = LocalNavScreenController.current
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(115.dp)
-            .clip(shape = RoundedCornerShape(15.dp))
+            .clickable {
+                navController
+                    .navigate(NavRoutes.RegionDetail.route + "/${regionInfo.name}")
+            }
+            .clip(
+                shape = RoundedCornerShape(15.dp)
+
+            )
     ) {
         Image(
             painter = painter,
