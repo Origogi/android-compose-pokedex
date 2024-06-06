@@ -1,9 +1,11 @@
 package com.origogi.pokedex.di
 
 
+import com.origogi.pokedex.data.repository.PokemonFavoriteRepositoryImpl
 import com.origogi.pokedex.data.repository.PokemonInfoRepositoryImpl
 import com.origogi.pokedex.data.repository.PokemonSpeciesInfoRepositoryImpl
 import com.origogi.pokedex.data.repository.PokemonWeaknessTypesRepositoryImpl
+import com.origogi.pokedex.domain.repository.PokemonFavoriteRepository
 import com.origogi.pokedex.domain.repository.PokemonInfoRepository
 import com.origogi.pokedex.domain.repository.PokemonSpeciesInfoRepository
 import com.origogi.pokedex.domain.repository.PokemonWeaknessTypesRepository
@@ -28,4 +30,7 @@ interface DataModule {
     @Singleton
     fun bindPokemonWeaknessTypesRepository(repository: PokemonWeaknessTypesRepositoryImpl): PokemonWeaknessTypesRepository
 
+    @Binds
+    @Singleton
+    fun bindPokemonFavoriteRepository(repository: PokemonFavoriteRepositoryImpl): PokemonFavoriteRepository
 }
