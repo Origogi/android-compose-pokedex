@@ -15,7 +15,7 @@ class PokemonWeaknessTypesRepositoryImpl @Inject constructor(
 ) : PokemonWeaknessTypesRepository {
 
     private val cache = mutableMapOf<PokemonType, List<PokemonType>>()
-    override suspend fun get(type: PokemonType): Flow<List<PokemonType>> = flow {
+    override fun get(type: PokemonType): Flow<List<PokemonType>> = flow {
         if (!cache.containsKey(type)) {
 
             val data = client.fetchPokemonTypeDetailData(type.name.lowercase())

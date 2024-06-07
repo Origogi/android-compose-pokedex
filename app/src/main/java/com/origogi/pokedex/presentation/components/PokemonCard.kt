@@ -95,10 +95,9 @@ fun PokemonCard(pokemonCardInfo: PokemonCardInfo) {
         LikeButton(
             modifier = Modifier
                 .padding(6.dp)
-                .align(Alignment.TopEnd)
+                .align(Alignment.TopEnd),
+            pokedexId = pokemonCardInfo.pokedexId
         )
-
-
     }
 
 }

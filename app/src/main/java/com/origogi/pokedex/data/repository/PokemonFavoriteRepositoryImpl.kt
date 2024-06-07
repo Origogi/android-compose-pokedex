@@ -31,6 +31,7 @@ class PokemonFavoriteRepositoryImpl @Inject constructor(@ApplicationContext cont
             newList
         }
     }
+
     override suspend fun remove(pokedexId: Int) = withContext(
         Dispatchers.IO
     ) {
@@ -41,7 +42,7 @@ class PokemonFavoriteRepositoryImpl @Inject constructor(@ApplicationContext cont
         }
     }
 
-    override suspend fun list(): Flow<List<Int>> = currentValues.asStateFlow()
+    override fun list(): Flow<List<Int>> = currentValues.asStateFlow()
 }
 
 private fun SharedPreferences.putValue(key: String = "favorites", value: List<Int>) {

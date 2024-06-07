@@ -4,5 +4,5 @@ import com.origogi.pokedex.domain.model.PokemonInfo
 import kotlinx.coroutines.flow.Flow
 
 interface PokemonInfoRepository {
-    suspend fun get(id: Int): Flow<PokemonInfo>
+    fun get(id: Int): Flow<PokemonInfo>
 }

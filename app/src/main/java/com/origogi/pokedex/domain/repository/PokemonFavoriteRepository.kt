@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 interface PokemonFavoriteRepository {
     suspend fun add(pokedexId : Int)
     suspend fun remove(pokedexId : Int)
-    suspend fun list() : Flow<List<Int>>
+    fun list() : Flow<List<Int>>
 }

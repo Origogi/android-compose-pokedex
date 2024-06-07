@@ -13,7 +13,7 @@ class PokemonSpeciesInfoRepositoryImpl @Inject constructor(
     private val pokedexApiClient: PokedexApiClient
 
 ) : PokemonSpeciesInfoRepository {
-    override suspend fun get(id: Int): Flow<PokemonSpeciesInfo> = flow {
+    override fun get(id: Int): Flow<PokemonSpeciesInfo> = flow {
         val speciesData = pokedexApiClient.fetchPokemonSpeciesData(id.toString())
         val desc = speciesData.getEnglishFlavorText().replace("\n", " ")
         val category = parseCategory(speciesData.getEnglishGenusText())
