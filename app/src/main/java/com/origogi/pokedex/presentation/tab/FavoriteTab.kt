@@ -2,25 +2,33 @@ package com.origogi.pokedex.presentation.tab
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.origogi.pokedex.presentation.theme.PokedexTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.origogi.pokedex.domain.model.PokemonCardInfo
+import com.origogi.pokedex.presentation.components.PokemonCardListView
+import com.origogi.pokedex.presentation.viewmodel.FavoriteTabViewModel
 
 @Composable
 fun FavoriteTab(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel : FavoriteTabViewModel = hiltViewModel()
 ) {
+
+    val list by viewModel.list.collectAsState()
     Box(modifier.fillMaxSize()) {
-        Text(text = "FavoriteTab")
+        Body(list = list)
     }
 }
 
-@Preview(name = "FavoriteTab")
 @Composable
-private fun PreviewFavoriteTab() {
-    PokedexTheme {
-        FavoriteTab()
-    }
+private fun Body(list: List<PokemonCardInfo>) {
+
+    PokemonCardListView(
+        pokemonCardInfoList = list,
+        needLoadMore = false
+    )
 }
+
