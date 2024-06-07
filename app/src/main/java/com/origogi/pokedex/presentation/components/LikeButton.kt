@@ -41,7 +41,7 @@ fun LikeButton(
 @Composable
 private fun ButtonIcon(modifier: Modifier, isFav: Boolean) {
     Image(
-        painter = painterResource(id = if (isFav) R.drawable.icon_fav_on else R.drawable.icon_fav_off),
+        painter = painterResource(id = if (isFav) R.drawable.icon_fav_round_on else R.drawable.icon_fav_round_off),
         contentDescription = "Favorite",
         modifier = modifier
             .size(32.dp)

@@ -11,6 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,12 +55,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.origogi.pokedex.R
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
@@ -67,6 +71,7 @@ import com.origogi.pokedex.extenstion.PokedexIdString
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
 import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
+import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark
 import com.origogi.pokedex.presentation.viewmodel.PokemonDetailViewModel
@@ -91,7 +96,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
             if (info == null) {
                 PokemonDetailPlaceholder()
             } else {
-                Body(info)
+                Body(info, LocalNavScreenController.current)
             }
         }
     }
@@ -99,20 +104,24 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun Body(info: PokemonDetailInfo) {
+private fun Body(info: PokemonDetailInfo, navController: NavController = rememberNavController()) {
 
-    println(info.weaknessTypes)
-
-    Scaffold(modifier = Modifier) {
+    Scaffold {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = it.calculateBottomPadding())
         ) {
 
-            item {
-                PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
 
+            item {
+                Box {
+                    PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
+                    AppBar(
+                        modifier = Modifier
+                            .padding(top = it.calculateTopPadding()),
+                        navController)
+                }
             }
 
             item {
@@ -160,11 +169,6 @@ private fun Body(info: PokemonDetailInfo) {
                     PokemonWeaknessTypesGrid(types = info.weaknessTypes)
                 }
             }
-
-
-
-            // PokemonHeight
-            // PokemonWeight
         }
     }
 }
@@ -447,6 +451,38 @@ fun PokemonDetailPlaceholder() {
         }
 
 
+    }
+}
+
+@Composable
+fun AppBar(
+    modifier: Modifier = Modifier,
+    navController: NavController = rememberNavController()) {
+    Row(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(38.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.icon_arrow_left),
+            modifier = Modifier
+                .size(38.dp)
+                .clickable {
+                    navController.popBackStack()
+                },
+            contentDescription = ""
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.icon_fav_off),
+            modifier = Modifier
+                .size(22.dp),
+            contentDescription = "",
+            colorFilter = ColorFilter.tint(Color.White)
+        )
     }
 }
 
