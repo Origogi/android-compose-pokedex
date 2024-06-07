@@ -92,7 +92,7 @@ fun PokemonCard(pokemonCardInfo: PokemonCardInfo) {
             }
         }
 
-        LikeButton(
+        RoundLikeButton(
             modifier = Modifier
                 .padding(6.dp)
                 .align(Alignment.TopEnd),

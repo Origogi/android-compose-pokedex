@@ -68,6 +68,7 @@ import com.origogi.pokedex.domain.model.PokemonDetailInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
 import com.origogi.pokedex.extenstion.PokedexIdString
+import com.origogi.pokedex.presentation.components.LikeButton
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
 import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
@@ -120,6 +121,7 @@ private fun Body(info: PokemonDetailInfo, navController: NavController = remembe
                     AppBar(
                         modifier = Modifier
                             .padding(top = it.calculateTopPadding()),
+                        pokedexId = info.pokedexId,
                         navController)
                 }
             }
@@ -457,6 +459,7 @@ fun PokemonDetailPlaceholder() {
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
+    pokedexId : Int,
     navController: NavController = rememberNavController()) {
     Row(
         modifier
@@ -476,13 +479,8 @@ fun AppBar(
             contentDescription = ""
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.icon_fav_off),
-            modifier = Modifier
-                .size(22.dp),
-            contentDescription = "",
-            colorFilter = ColorFilter.tint(Color.White)
-        )
+
+        LikeButton(pokedexId = pokedexId)
     }
 }
 
