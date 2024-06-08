@@ -1,5 +1,9 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.origogi.pokedex.presentation.components
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,10 +60,12 @@ fun PokemonCardListView(
 
                 Box(
                     Modifier
+                        .animateItemPlacement(
+                            animationSpec = tween(500)
+                        )
                         .padding(vertical = 8.dp)
                         .clickable {
                             navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}") {
-
 //                                restoreState = true
                             }
                         }

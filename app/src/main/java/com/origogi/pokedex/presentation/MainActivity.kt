@@ -39,12 +39,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MyApp() {
+
+    MyLocalProvider {
+        MyNavHost()
+    }
+}
+
+@Composable
+fun MyLocalProvider(content: @Composable () -> Unit) {
     val navController = rememberNavController()
 
     CompositionLocalProvider(LocalNavScreenController provides navController) {
-        MyNavHost()
+        content()
     }
-
 }
 
 @Composable

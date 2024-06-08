@@ -53,6 +53,11 @@ private fun SharedPreferences.putValue(key: String = "favorites", value: List<In
 }
 
 private fun SharedPreferences.getValues(key: String = "favorites"): List<Int> {
-    val storedString = getString(key, null) ?: return emptyList()
+    val storedString = getString(key, "")
+
+    if (storedString.isNullOrEmpty()) {
+        return emptyList()
+    }
+
     return storedString.split(",").map { it.toInt() }.toList()
 }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.origogi.pokedex.domain.model.RegionType
 import com.origogi.pokedex.domain.model.backgroundImageUrl
+import com.origogi.pokedex.presentation.MyLocalProvider
 import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.router.NavRoutes
 import com.origogi.pokedex.presentation.theme.Black200
@@ -136,6 +137,8 @@ fun RegionCard(regionInfo: RegionType) {
 @Composable
 private fun PreviewRegionTab() {
     PokedexTheme {
-        RegionTab()
+        MyLocalProvider {
+            RegionTab()
+        }
     }
 }
