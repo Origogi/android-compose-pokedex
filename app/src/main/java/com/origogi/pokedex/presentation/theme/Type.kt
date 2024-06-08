@@ -60,6 +60,11 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 21.sp,
     ),
+    headlineMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+    ),
     headlineSmall = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.SemiBold,
