@@ -10,7 +10,6 @@ import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.RegionType
 import com.origogi.pokedex.domain.usecase.GetPokemonCardInfoListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +33,6 @@ class PokemonCardListViewModel @Inject constructor(
 
     private val limit = 20
     private var offset = savedStateHandle.get<String>("region").let {
-        println("Region : $it")
         if (it != null) {
             RegionType.valueOf(it).pokedexIdRange.first
         } else {
@@ -57,17 +55,15 @@ class PokemonCardListViewModel @Inject constructor(
             viewModelScope.launch {
                 state = ViewModelState.Loading
 
-                useCase.execute(offset, limit).map {
-                    it.filter { pokemonCardInfo ->
-                        pokemonCardInfo.pokedexId <= endPokedexId}
-                }.collect {
-                    list = list + it
-                    offset += it.size
-
-                    if (list.last().pokedexId == endPokedexId) {
+                useCase.execute(offset, limit).filter {
+                    it.pokedexId <= endPokedexId
+                }.let {
+                    if (it.isNotEmpty()) {
+                        list = list + it
+                        offset += limit
+                    } else {
                         needLoadMore = false
                     }
-
                     state = ViewModelState.Idle
                 }
             }
