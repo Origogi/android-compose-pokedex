@@ -48,15 +48,6 @@ fun PokemonCardListView(
             items(pokemonCardInfoList, key = {
                 it.pokedexId
             }) { pokemonCardInfo ->
-//                var lapVisible by remember { mutableStateOf(false) }
-//                val animatedLapAlpha by animateFloatAsState(
-//                    targetValue = if (lapVisible) 1f else 0f,
-//                    label = "Lap alpha",
-//                    animationSpec = tween(
-//                        durationMillis = 250,
-//                        easing = LinearEasing,
-//                    )
-//                )
 
                 Box(
                     Modifier
@@ -69,10 +60,6 @@ fun PokemonCardListView(
 //                                restoreState = true
                             }
                         }
-//                        .graphicsLayer {
-//                            lapVisible = true
-//                            alpha = animatedLapAlpha
-//                        }
                 ) {
                     PokemonCard(pokemonCardInfo)
                 }

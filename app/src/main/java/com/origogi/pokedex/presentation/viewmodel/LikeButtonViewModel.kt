@@ -2,21 +2,24 @@ package com.origogi.pokedex.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.origogi.pokedex.domain.repository.PokemonFavoriteRepository
+import com.origogi.pokedex.domain.usecase.AddFavoriteUseCase
+import com.origogi.pokedex.domain.usecase.RemoveFavoriteUseCase
+import com.origogi.pokedex.domain.usecase.WatchIsFavoriteUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @HiltViewModel(assistedFactory = LikeButtonViewModel.LikeButtonViewModelFactory::class)
 class LikeButtonViewModel @AssistedInject constructor(
-    @Assisted private val pokedexId : Int,
-    private val favoriteRepository: PokemonFavoriteRepository
+    @Assisted private val pokedexId: Int,
+    private val addFavoriteUseCase: AddFavoriteUseCase,
+    private val removeFavoriteUseCase: RemoveFavoriteUseCase,
+    watchIsFavoriteUseCase: WatchIsFavoriteUseCase,
 ) : ViewModel() {
 
     @AssistedFactory
@@ -25,9 +28,7 @@ class LikeButtonViewModel @AssistedInject constructor(
     }
 
 
-    val isFavorite: StateFlow<Boolean> = favoriteRepository.list().map {
-        it.contains(pokedexId)
-    }.stateIn(
+    val isFavorite: StateFlow<Boolean> = watchIsFavoriteUseCase.execute(pokedexId).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = false
@@ -37,9 +38,9 @@ class LikeButtonViewModel @AssistedInject constructor(
         println(pokedexId)
         viewModelScope.launch {
             if (isFavorite.value) {
-                favoriteRepository.remove(pokedexId)
+                removeFavoriteUseCase.execute(pokedexId)
             } else {
-                favoriteRepository.add(pokedexId)
+                addFavoriteUseCase.execute(pokedexId)
             }
         }
     }

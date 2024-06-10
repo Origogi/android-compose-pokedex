@@ -1,5 +1,7 @@
 package com.origogi.pokedex.presentation.tab
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,7 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.origogi.pokedex.R
 import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.presentation.components.PokemonCardListView
+import com.origogi.pokedex.presentation.components.PokemonCard
+import com.origogi.pokedex.presentation.components.SwipeableCard
+import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.theme.Black700
 import com.origogi.pokedex.presentation.theme.Black80
 import com.origogi.pokedex.presentation.theme.Black800
@@ -59,7 +66,10 @@ fun FavoriteTab(
         if (list.isEmpty()) {
             EmptyPlaceholder()
         } else {
-            Content(list)
+            Content(list, onDeleteItem = {
+                viewModel.removeFavorite(it)
+
+            })
         }
     }
 }
@@ -98,15 +108,42 @@ private fun EmptyPlaceholder() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun Content(list: List<PokemonCardInfo>) {
+private fun Content(list: List<PokemonCardInfo>, onDeleteItem: (Int) -> Unit) {
 
-    Column(Modifier.fillMaxSize()) {
+    val listState = rememberLazyListState()
+    val navController = LocalNavScreenController.current
 
-        PokemonCardListView(
-            pokemonCardInfoList = list,
-            needLoadMore = false
-        )
+    LazyColumn(
+        state = listState
+    ) {
+        items(list, {
+            it.pokedexId
+
+        }) { pokemonCardInfo ->
+            Box(
+                Modifier
+                    .animateItemPlacement(
+                        animationSpec = tween(500)
+                    )
+                    .padding(vertical = 8.dp)
+
+            ) {
+                SwipeableCard(
+                    onTapDeleteButton = {
+                        onDeleteItem(pokemonCardInfo.pokedexId)
+                    },
+                    content = {
+                        PokemonCard(pokemonCardInfo)
+                    },
+                    onTapContent = {
+                        navController.navigate("pokemonDetail/${pokemonCardInfo.pokedexId}")
+                    }
+                )
+            }
+        }
+
     }
 }
 
