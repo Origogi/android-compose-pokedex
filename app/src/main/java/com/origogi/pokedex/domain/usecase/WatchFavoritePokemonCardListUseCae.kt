@@ -24,7 +24,7 @@ class WatchFavoritePokemonCardListUseCase @Inject constructor(
             flow {
                 val pokemonCardInfoList = favoriteList.asFlow()
                     .flatMapMerge { pokedexId ->
-                        pokemonInfoRepository.get(pokedexId)
+                        pokemonInfoRepository.getById(pokedexId)
                     }
                     .map { detailInfo ->
                         PokemonCardInfo(

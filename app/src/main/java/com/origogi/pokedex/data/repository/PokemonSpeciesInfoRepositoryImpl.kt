@@ -24,10 +24,13 @@ class PokemonSpeciesInfoRepositoryImpl @Inject constructor(
             }
         }
 
+        val evolutionChainId = parseEvolutionId(speciesData.evolutionChain.url)
+
         emit(PokemonSpeciesInfo(
             desc = desc,
             category = category,
-            genderRate = genderRate
+            genderRate = genderRate,
+            evolutionChainId = evolutionChainId
         ))
     }
 
@@ -35,5 +38,11 @@ class PokemonSpeciesInfoRepositoryImpl @Inject constructor(
         val regex = """(.*?) Pokémon""".toRegex()
         val matchResult = regex.find(fullString)
         return matchResult?.groups?.get(1)?.value ?: ""
+    }
+
+    private fun parseEvolutionId(url : String) : Int {
+        val regex = """/(\d+)/$""".toRegex()
+        val matchResult = regex.find(url)
+        return matchResult?.groups?.get(1)?.value?.toInt() ?: 0
     }
 }

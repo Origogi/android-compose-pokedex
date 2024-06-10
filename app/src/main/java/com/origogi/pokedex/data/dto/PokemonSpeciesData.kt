@@ -10,7 +10,9 @@ data class PokemonSpeciesData(
     val genera: List<GeneraData>,
     @SerialName("gender_rate")
     val genderRate: Int,
-    )
+    @SerialName(value = "evolution_chain")
+    val evolutionChain : UrlData
+)
 
 @Serializable
 data class FlavorTextEntry(

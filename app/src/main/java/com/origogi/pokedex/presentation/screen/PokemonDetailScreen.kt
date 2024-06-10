@@ -514,7 +514,8 @@ fun PreviewPokemonDetailScreen() {
                 abilities = listOf("Blaze", "Solar Power"),
                 category = "Lizard Pokémon",
                 genderRatio = 0.5,
-                weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric)
+                weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric),
+                evolutionChainInfo = null
             )
         )
     }

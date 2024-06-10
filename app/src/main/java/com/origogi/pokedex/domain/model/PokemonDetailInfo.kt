@@ -12,7 +12,8 @@ data class PokemonDetailInfo(
     val abilities: List<String>,
     val category: String,
     val genderRatio : Double?,
-    val weaknessTypes: List<PokemonType>
+    val weaknessTypes: List<PokemonType>,
+    val evolutionChainInfo: PokemonEvolutionChainInfo?
 )
 
 val PokemonDetailInfo.mainType: PokemonType

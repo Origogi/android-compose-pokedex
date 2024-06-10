@@ -18,7 +18,7 @@ class GetPokemonCardInfoListUseCase @Inject constructor(
 
         (offset until offset + limit).asFlow()
             .flatMapMerge { pokedexId ->
-                repository.get(pokedexId)
+                repository.getById(pokedexId)
             }
             .collect { detailInfo ->
                 list.add(
