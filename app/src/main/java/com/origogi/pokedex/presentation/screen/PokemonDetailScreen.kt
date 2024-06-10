@@ -64,11 +64,14 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.origogi.pokedex.R
+import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.PokemonDetailInfo
+import com.origogi.pokedex.domain.model.PokemonEvolutionChainInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
 import com.origogi.pokedex.extenstion.PokedexIdString
 import com.origogi.pokedex.presentation.components.LikeButton
+import com.origogi.pokedex.presentation.components.PokemonEvolutionInfoView
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
 import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
@@ -122,7 +125,8 @@ private fun Body(info: PokemonDetailInfo, navController: NavController = remembe
                         modifier = Modifier
                             .padding(top = it.calculateTopPadding()),
                         pokedexId = info.pokedexId,
-                        navController)
+                        navController
+                    )
                 }
             }
 
@@ -169,6 +173,12 @@ private fun Body(info: PokemonDetailInfo, navController: NavController = remembe
                     Spacer(modifier = Modifier.height(40.dp))
 
                     PokemonWeaknessTypesGrid(types = info.weaknessTypes)
+
+                    Spacer(modifier = Modifier.height(40.dp))
+                    if (info.evolutionChainInfo != null) {
+                        PokemonEvolutionInfoView(info.evolutionChainInfo)
+                        Spacer(modifier = Modifier.height(26.dp))
+                    }
                 }
             }
         }
@@ -234,8 +244,8 @@ fun PokemonWeaknessTypesGrid(types: List<PokemonType>) {
         Text(
             text = "Weakness",
             style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+
+            )
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -459,8 +469,9 @@ fun PokemonDetailPlaceholder() {
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
-    pokedexId : Int,
-    navController: NavController = rememberNavController()) {
+    pokedexId: Int,
+    navController: NavController = rememberNavController()
+) {
     Row(
         modifier
             .fillMaxWidth()
@@ -515,7 +526,40 @@ fun PreviewPokemonDetailScreen() {
                 category = "Lizard Pokémon",
                 genderRatio = 0.5,
                 weaknessTypes = listOf(PokemonType.Water, PokemonType.Electric),
-                evolutionChainInfo = null
+                evolutionChainInfo = PokemonEvolutionChainInfo(
+                    cardInfo = PokemonCardInfo(
+                        pokedexId = 1,
+                        name = "Bulbasaur",
+                        imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/1.png",
+                        types = listOf(
+                            PokemonType.Grass,
+                            PokemonType.Poison
+                        ),
+                    ),
+                    next = PokemonEvolutionChainInfo(
+                        cardInfo = PokemonCardInfo(
+                            pokedexId = 2,
+                            name = "Ivysaur",
+                            imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/2.png",
+                            types = listOf(
+                                PokemonType.Grass,
+                                PokemonType.Poison
+                            ),
+                        ),
+                        next = PokemonEvolutionChainInfo(
+                            cardInfo = PokemonCardInfo(
+                                pokedexId = 3,
+                                name = "Venusaur",
+                                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/3.png",
+                                types = listOf(
+                                    PokemonType.Grass,
+                                    PokemonType.Poison
+                                ),
+                            ),
+                            next = null
+                        )
+                    )
+                )
             )
         )
     }

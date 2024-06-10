@@ -14,11 +14,11 @@ val Pink40 = Color(0xFF7D5260)
 val DeepSkyBlue = Color(0xFF173EA5)
 
 val Black80 = Color(0xFFF2F2F2)
+val Black100 = Color(0xFFE6E6E6)
 val Black200 = Color(0xFFCCCCCC)
 val Black700 = Color(0xFF4D4D4D)
-
 val Black800 = Color(0xFF333333)
-
+val Black900 = Color(0xFF1A1A1A)
 val Male = Color(0xFF2441C3)
 val Female = Color(0xFFFF7596)
 

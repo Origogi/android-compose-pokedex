@@ -36,8 +36,8 @@ data class PokemonAbilityData(
 
 @Serializable
 data class VersionsData(
-    @SerialName(value = "generation-viii")
-    val generationViii: GenerationViiiData
+    @SerialName(value = "generation-vii")
+    val generationVii: GenerationViiiData
 )
 
 @Serializable

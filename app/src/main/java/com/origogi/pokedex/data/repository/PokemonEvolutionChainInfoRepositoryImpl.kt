@@ -29,7 +29,7 @@ class PokemonEvolutionChainInfoRepositoryImpl @Inject constructor(
             val cardInfo = PokemonCardInfo(
                 pokedexId = pokemonDetailData.id,
                 name = pokemonDetailData.name,
-                imageUrl = pokemonDetailData.sprites.versions.generationViii.icons.frontDefault,
+                imageUrl = pokemonDetailData.sprites.versions.generationVii.icons.frontDefault,
                 types = pokemonDetailData.types.map { PokemonType.valueOf(it.type.name.capitalizeFirstChar()) }
             )
 
