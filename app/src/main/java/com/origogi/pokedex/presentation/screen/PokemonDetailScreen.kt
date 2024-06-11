@@ -67,8 +67,7 @@ import com.origogi.pokedex.presentation.components.PokemonEvolutionInfoView
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
 import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
-import com.origogi.pokedex.presentation.components.shimmerEffect
-import com.origogi.pokedex.presentation.components.shimmerTransitionAnimation
+import com.origogi.pokedex.presentation.components.addShimmerEffect
 import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark
@@ -116,8 +115,7 @@ private fun Body(info: PokemonDetailInfo, navController: NavController = remembe
                 Box {
                     PokemonImage(imageUrl = info.animatedImageUrl, type = info.mainType)
                     AppBar(
-                        modifier = Modifier
-                            .padding(top = it.calculateTopPadding()),
+                        modifier = Modifier.padding(top = it.calculateTopPadding()),
                         pokedexId = info.pokedexId,
                         navController
                     )
@@ -195,8 +193,7 @@ private fun PokemonTypeChip(modifier: Modifier = Modifier, type: PokemonType) {
     Box(
         modifier = modifier
             .background(
-                type.color,
-                shape = RoundedCornerShape(67.dp)
+                type.color, shape = RoundedCornerShape(67.dp)
             )
             .height(TYPE_CHIP_HEIGHT.dp)
             .padding(horizontal = 16.dp, vertical = 4.dp),
@@ -261,8 +258,7 @@ private fun PokemonImage(imageUrl: String, type: PokemonType) {
     Box(Modifier.height(290.dp)) {
         PokemonTypeBackground(color = type.color)
         PokemonTypeIcon(
-            type = type,
-            modifier = Modifier
+            type = type, modifier = Modifier
                 .size(250.dp)
                 .padding(top = 30.dp)
                 .align(
@@ -270,11 +266,9 @@ private fun PokemonImage(imageUrl: String, type: PokemonType) {
                 )
         )
         PokemonGifImage(
-            imageUrl = imageUrl,
-            modifier = Modifier
-                .align(
-                    alignment = Alignment.BottomCenter
-                )
+            imageUrl = imageUrl, modifier = Modifier.align(
+                alignment = Alignment.BottomCenter
+            )
         )
 
 
@@ -288,23 +282,19 @@ private fun PokemonGifImage(modifier: Modifier = Modifier, imageUrl: String) {
     val coroutineScope = rememberCoroutineScope()
 
     val context = LocalContext.current
-    val imageLoader = ImageLoader.Builder(context)
-        .components {
-            if (SDK_INT >= 28) {
-                add(ImageDecoderDecoder.Factory())
-            } else {
-                add(GifDecoder.Factory())
-            }
+    val imageLoader = ImageLoader.Builder(context).components {
+        if (SDK_INT >= 28) {
+            add(ImageDecoderDecoder.Factory())
+        } else {
+            add(GifDecoder.Factory())
         }
-        .build()
+    }.build()
 
     LaunchedEffect(imageUrl) {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
-                val request = ImageRequest.Builder(context)
-                    .data(imageUrl)
-                    .allowHardware(false)
-                    .build()
+                val request =
+                    ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
                 val result = (imageLoader.execute(request) as? SuccessResult)?.drawable
                 result?.let {
                     val oWidth = it.intrinsicWidth.dp
@@ -324,14 +314,10 @@ private fun PokemonGifImage(modifier: Modifier = Modifier, imageUrl: String) {
 
     Image(
         painter = rememberAsyncImagePainter(
-            ImageRequest.Builder(context)
-                .data(data = imageUrl)
-                .build(),
-            imageLoader = imageLoader
+            ImageRequest.Builder(context).data(data = imageUrl).build(), imageLoader = imageLoader
         ),
         contentDescription = null,
-        modifier = modifier
-            .size(targetImageSize),
+        modifier = modifier.size(targetImageSize),
     )
 }
 
@@ -353,8 +339,7 @@ private fun PokemonTypeBackground(modifier: Modifier = Modifier, color: Color) {
         }
 
         drawPath(
-            path = path,
-            color = color
+            path = path, color = color
         )
     }
 }
@@ -362,16 +347,10 @@ private fun PokemonTypeBackground(modifier: Modifier = Modifier, color: Color) {
 @Composable
 fun PokemonDetailPlaceholder() {
 
-    val shimmerTranslateAnim by shimmerTransitionAnimation()
-
-    Column(
-        Modifier.shimmerEffect(shimmerTranslateAnim)
-
-    ) {
+    Column {
         Box(modifier = Modifier.height(290.dp)) {
             PokemonTypeBackground(
-                modifier = Modifier,
-                color = Color.LightGray
+                modifier = Modifier.addShimmerEffect(), color = Color.LightGray
             )
         }
 
@@ -379,6 +358,7 @@ fun PokemonDetailPlaceholder() {
             Box(
                 Modifier
                     .size(width = 200.dp, height = 40.dp)
+                    .addShimmerEffect()
                     .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
             )
 
@@ -387,7 +367,9 @@ fun PokemonDetailPlaceholder() {
             Box(
                 Modifier
                     .size(width = 70.dp, height = 22.dp)
+                    .addShimmerEffect()
                     .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
+
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -396,13 +378,17 @@ fun PokemonDetailPlaceholder() {
                 Box(
                     Modifier
                         .size(width = 110.dp, height = 36.dp)
+                        .addShimmerEffect()
                         .background(Color.LightGray, shape = RoundedCornerShape(67.dp))
+
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Box(
                     Modifier
                         .size(width = 110.dp, height = 36.dp)
+                        .addShimmerEffect()
                         .background(Color.LightGray, shape = RoundedCornerShape(67.dp))
+
                 )
 
             }
@@ -412,10 +398,11 @@ fun PokemonDetailPlaceholder() {
                 Modifier
                     .fillMaxWidth()
                     .height(150.dp)
+                    .addShimmerEffect()
+
                     .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+
             )
-
-
         }
 
 
@@ -472,8 +459,7 @@ fun PreviewPokemonDetailScreen() {
                 animatedImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif",
 
                 types = listOf(
-                    PokemonType.Fire,
-                    PokemonType.Water
+                    PokemonType.Fire, PokemonType.Water
                 ),
                 height = 7.0,
                 weight = 69.0,
@@ -488,31 +474,25 @@ fun PreviewPokemonDetailScreen() {
                         name = "Bulbasaur",
                         imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/1.png",
                         types = listOf(
-                            PokemonType.Grass,
-                            PokemonType.Poison
+                            PokemonType.Grass, PokemonType.Poison
                         ),
-                    ),
-                    next = PokemonEvolutionChainInfo(
+                    ), next = PokemonEvolutionChainInfo(
                         cardInfo = PokemonCardInfo(
                             pokedexId = 2,
                             name = "Ivysaur",
                             imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/2.png",
                             types = listOf(
-                                PokemonType.Grass,
-                                PokemonType.Poison
+                                PokemonType.Grass, PokemonType.Poison
                             ),
-                        ),
-                        next = PokemonEvolutionChainInfo(
+                        ), next = PokemonEvolutionChainInfo(
                             cardInfo = PokemonCardInfo(
                                 pokedexId = 3,
                                 name = "Venusaur",
                                 imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/3.png",
                                 types = listOf(
-                                    PokemonType.Grass,
-                                    PokemonType.Poison
+                                    PokemonType.Grass, PokemonType.Poison
                                 ),
-                            ),
-                            next = null
+                            ), next = null
                         )
                     )
                 )
