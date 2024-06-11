@@ -18,13 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.origogi.pokedex.domain.model.PokemonCardInfo
-import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.router.NavRoutes
-import com.origogi.pokedex.presentation.theme.PokedexTheme
 
 @Composable
 fun PokemonCardListView(
@@ -99,28 +96,32 @@ fun LoadingIndicator(onAppear: () -> Unit) {
     }
 }
 
-@Preview(name = "PokemonCardListView", showBackground = true)
-@Composable
-private fun PreviewPokemonCardListView() {
-    PokedexTheme {
-        PokemonCardListView(
-            pokemonCardInfoList = listOf(
-                PokemonCardInfo(
-                    pokedexId = 1,
-                    name = "Bulbasaur",
-                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                    types = listOf(PokemonType.Bug, PokemonType.Dark),
-                ),
-                PokemonCardInfo(
-                    pokedexId = 12,
-                    name = "Bulbasaur",
-                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                    types = listOf(PokemonType.Ice, PokemonType.Dark),
-                ),
 
-                ),
-            needLoadMore = false,
-        )
+//@Preview(name = "PokemonCardListView", showBackground = true)
+//@Composable
+//private fun PreviewPokemonCardListView() {
+//    PokedexTheme {
+//        MyLocalProvider {
+//            PokemonCardListView(
+//                pokemonCardInfoList = listOf(
+//                    PokemonCardInfo(
+//                        pokedexId = 1,
+//                        name = "Bulbasaur",
+//                        imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+//                        types = listOf(PokemonType.Bug, PokemonType.Dark),
+//                    ),
+//                    PokemonCardInfo(
+//                        pokedexId = 12,
+//                        name = "Bulbasaur",
+//                        imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+//                        types = listOf(PokemonType.Ice, PokemonType.Dark),
+//                    ),
+//
+//                    ),
+//                needLoadMore = false,
+//            )
+//        }
+//
+//    }
+//}
 
-    }
-}

@@ -96,7 +96,7 @@ fun PokemonCard(pokemonCardInfo: PokemonCardInfo) {
             modifier = Modifier
                 .padding(6.dp)
                 .align(Alignment.TopEnd),
-            pokedexId = pokemonCardInfo.pokedexId
+            pokedexId = pokemonCardInfo.pokedexId,
         )
     }
 

@@ -2,11 +2,6 @@ package com.origogi.pokedex.presentation.screen
 
 import android.os.Build.VERSION.SDK_INT
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -43,12 +38,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,6 +67,8 @@ import com.origogi.pokedex.presentation.components.PokemonEvolutionInfoView
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
 import com.origogi.pokedex.presentation.components.PokemonStatusGroup
 import com.origogi.pokedex.presentation.components.PokemonTypeIcon
+import com.origogi.pokedex.presentation.components.shimmerEffect
+import com.origogi.pokedex.presentation.components.shimmerTransitionAnimation
 import com.origogi.pokedex.presentation.router.LocalNavScreenController
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark
@@ -271,7 +265,6 @@ private fun PokemonImage(imageUrl: String, type: PokemonType) {
             modifier = Modifier
                 .size(250.dp)
                 .padding(top = 30.dp)
-
                 .align(
                     alignment = Alignment.TopCenter
                 )
@@ -369,49 +362,12 @@ private fun PokemonTypeBackground(modifier: Modifier = Modifier, color: Color) {
 @Composable
 fun PokemonDetailPlaceholder() {
 
-    val transition = rememberInfiniteTransition(label = "")
-    val shimmerTranslateAnim = transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ), label = ""
-    )
+    val shimmerTranslateAnim by shimmerTransitionAnimation()
 
     Column(
-        Modifier.drawWithContent {
-            with(drawContext.canvas.nativeCanvas) {
-                val checkPoint = saveLayer(null, null)
+        Modifier.shimmerEffect(shimmerTranslateAnim)
 
-                val shimmerBrush = androidx.compose.ui.graphics.Brush.linearGradient(
-                    colors = listOf(
-                        Color.LightGray.copy(alpha = 0.9f),
-                        Color.LightGray.copy(alpha = 0.3f),
-                        Color.LightGray.copy(alpha = 0.9f)
-                    ),
-                    start = Offset(
-                        shimmerTranslateAnim.value - 200f,
-                        shimmerTranslateAnim.value - 200f
-                    ),
-                    end = Offset(shimmerTranslateAnim.value, shimmerTranslateAnim.value)
-                )
-
-                // Destination
-                drawContent()
-
-                // Source
-                drawRect(
-                    brush = shimmerBrush,
-                    blendMode = androidx.compose.ui.graphics.BlendMode.SrcIn
-                )
-
-                restoreToCount(checkPoint)
-
-            }
-        },
-
-        ) {
+    ) {
         Box(modifier = Modifier.height(290.dp)) {
             PokemonTypeBackground(
                 modifier = Modifier,
