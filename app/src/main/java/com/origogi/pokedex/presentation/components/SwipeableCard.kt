@@ -56,7 +56,7 @@ fun SwipeableCard(
                 // 7
                 DraggableAnchors {
                     DragAnchors.Start at 0f
-                    DragAnchors.End at -250f
+                    DragAnchors.End at -330f
                 }
             )
         }
