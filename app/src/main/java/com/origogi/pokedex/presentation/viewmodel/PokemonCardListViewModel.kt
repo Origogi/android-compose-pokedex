@@ -28,6 +28,9 @@ class PokemonCardListViewModel @Inject constructor(
     var list by mutableStateOf<List<PokemonCardInfo>>(emptyList())
         private set
 
+    var state by mutableStateOf(ViewModelState.Idle)
+        private set
+
     var needLoadMore by mutableStateOf(true)
         private set
 
@@ -39,7 +42,9 @@ class PokemonCardListViewModel @Inject constructor(
             1
         }
     }
-    private var state = ViewModelState.Idle
+
+
+
     private val endPokedexId =
         savedStateHandle.get<String>("region").let {
             if (it != null) {

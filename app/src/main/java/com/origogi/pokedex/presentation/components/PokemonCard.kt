@@ -29,7 +29,7 @@ import coil.compose.AsyncImage
 import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
-import com.origogi.pokedex.extenstion.PokedexIdString
+import com.origogi.pokedex.extenstion.pokedexIdString
 import com.origogi.pokedex.presentation.theme.Black800
 import com.origogi.pokedex.presentation.theme.PokedexTheme
 import com.origogi.pokedex.presentation.theme.isDark
@@ -54,7 +54,7 @@ fun PokemonCard(pokemonCardInfo: PokemonCardInfo) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = pokemonCardInfo.pokedexId.PokedexIdString(),
+                    text = pokemonCardInfo.pokedexId.pokedexIdString(),
                     style = MaterialTheme.typography.headlineSmall, color = Black800
                 )
                 Text(
@@ -148,6 +148,7 @@ private fun PokemonTypeChip(type: PokemonType) {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

@@ -56,9 +56,7 @@ fun PokemonCardListView(
                         )
                         .padding(vertical = 8.dp)
                         .clickable {
-                            navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}") {
-//                                restoreState = true
-                            }
+                            navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
                         }
                 ) {
                     PokemonCard(pokemonCardInfo)

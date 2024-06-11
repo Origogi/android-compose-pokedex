@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.origogi.pokedex.presentation.components.PokemonCardListView
 import com.origogi.pokedex.presentation.viewmodel.PokemonCardListViewModel
+import com.origogi.pokedex.presentation.viewmodel.ViewModelState
 
 @Composable
 fun PokedexTab(
@@ -16,13 +17,19 @@ fun PokedexTab(
         viewModel.loadMore()
     }
 
+    if (viewModel.list.isEmpty()
+        && viewModel.state == ViewModelState.Loading) {
 
-    PokemonCardListView(
-        modifier = modifier,
-        pokemonCardInfoList = viewModel.list,
-        viewModel.needLoadMore
-    ) {
-        viewModel.loadMore()
+        // Placeholder
+
+    } else {
+        PokemonCardListView(
+            modifier = modifier,
+            pokemonCardInfoList = viewModel.list,
+            viewModel.needLoadMore
+        ) {
+            viewModel.loadMore()
+        }
     }
 }
 

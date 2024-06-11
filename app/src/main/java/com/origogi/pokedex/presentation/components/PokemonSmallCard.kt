@@ -28,7 +28,7 @@ import coil.compose.AsyncImage
 import com.origogi.pokedex.domain.model.PokemonCardInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
-import com.origogi.pokedex.extenstion.PokedexIdString
+import com.origogi.pokedex.extenstion.pokedexIdString
 import com.origogi.pokedex.presentation.theme.Black100
 import com.origogi.pokedex.presentation.theme.Black700
 import com.origogi.pokedex.presentation.theme.Black900
@@ -75,7 +75,7 @@ fun PokemonSmallCard(cardInfo: PokemonCardInfo) {
                     color = Black900
                 )
                 Text(
-                    text = cardInfo.pokedexId.PokedexIdString(),
+                    text = cardInfo.pokedexId.pokedexIdString(),
                     style = MaterialTheme.typography.labelSmall,
                     color = Black700
                 )

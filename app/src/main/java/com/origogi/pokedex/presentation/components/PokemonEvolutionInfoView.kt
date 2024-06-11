@@ -45,25 +45,64 @@ fun PokemonEvolutionInfoView(info: PokemonEvolutionChainInfo) {
                     ), shape = RoundedCornerShape(15.dp)
                 )
         ) {
-            Column(
-                Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                for ((i, item) in list.withIndex()) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        PokemonSmallCard(cardInfo = item)
-                        if (i != list.lastIndex) {
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Image(
-                                painter = painterResource(id = R.drawable.icon_arrow_down),
-                                contentDescription = ""
-                            )
 
+            if (list.size > 1) {
+                Column(
+                    Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    for ((i, item) in list.withIndex()) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            PokemonSmallCard(cardInfo = item)
+                            if (i != list.lastIndex) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Image(
+                                    painter = painterResource(id = R.drawable.icon_arrow_down),
+                                    contentDescription = ""
+                                )
+
+                            }
                         }
                     }
+
+
+                }
+            } else {
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Text(
+                        text = "This Pokémon does not evolve.",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    PokemonSmallCard(cardInfo = list.first())
                 }
             }
+
+
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonEvolutionInfoViewOneItemPreview() {
+    PokedexTheme {
+        PokemonEvolutionInfoView(
+            info = PokemonEvolutionChainInfo(
+                cardInfo = PokemonCardInfo(
+                    pokedexId = 1,
+                    name = "Bulbasaur",
+                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/1.png",
+                    types = listOf(
+                        PokemonType.Grass, PokemonType.Poison
+                    ),
+                ),
+                next = null
+            )
+        )
+
     }
 }
 
@@ -78,31 +117,25 @@ fun PokemonEvolutionInfoViewPreview() {
                     name = "Bulbasaur",
                     imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/1.png",
                     types = listOf(
-                        PokemonType.Grass,
-                        PokemonType.Poison
+                        PokemonType.Grass, PokemonType.Poison
                     ),
-                ),
-                next = PokemonEvolutionChainInfo(
+                ), next = PokemonEvolutionChainInfo(
                     cardInfo = PokemonCardInfo(
                         pokedexId = 2,
                         name = "Ivysaur",
                         imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/2.png",
                         types = listOf(
-                            PokemonType.Grass,
-                            PokemonType.Poison
+                            PokemonType.Grass, PokemonType.Poison
                         ),
-                    ),
-                    next = PokemonEvolutionChainInfo(
+                    ), next = PokemonEvolutionChainInfo(
                         cardInfo = PokemonCardInfo(
                             pokedexId = 3,
                             name = "Venusaur",
                             imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vii/icons/3.png",
                             types = listOf(
-                                PokemonType.Grass,
-                                PokemonType.Poison
+                                PokemonType.Grass, PokemonType.Poison
                             ),
-                        ),
-                        next = null
+                        ), next = null
                     )
                 )
             )

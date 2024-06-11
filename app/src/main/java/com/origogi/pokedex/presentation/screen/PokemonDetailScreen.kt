@@ -69,7 +69,7 @@ import com.origogi.pokedex.domain.model.PokemonDetailInfo
 import com.origogi.pokedex.domain.model.PokemonEvolutionChainInfo
 import com.origogi.pokedex.domain.model.PokemonType
 import com.origogi.pokedex.domain.model.mainType
-import com.origogi.pokedex.extenstion.PokedexIdString
+import com.origogi.pokedex.extenstion.pokedexIdString
 import com.origogi.pokedex.presentation.components.LikeButton
 import com.origogi.pokedex.presentation.components.PokemonEvolutionInfoView
 import com.origogi.pokedex.presentation.components.PokemonGenderRatioView
@@ -141,7 +141,7 @@ private fun Body(info: PokemonDetailInfo, navController: NavController = remembe
                         style = MaterialTheme.typography.titleLarge,
                     )
                     Text(
-                        text = info.pokedexId.PokedexIdString(),
+                        text = info.pokedexId.pokedexIdString(),
                         style = MaterialTheme.typography.titleSmall,
                         color = Color.Black.copy(alpha = 0.7f)
                     )

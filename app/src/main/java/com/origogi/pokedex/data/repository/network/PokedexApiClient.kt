@@ -1,6 +1,5 @@
 package com.origogi.pokedex.data.repository.network
 
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class PokedexApiClient @Inject constructor(
@@ -14,7 +13,6 @@ class PokedexApiClient @Inject constructor(
     suspend fun fetchPokemonTypeDetailData(type: String) =
         pokedexApiService.getPokemonTypeDetailData(type)
 
-    fun fetchPokemonEvolutionChainData(id: String) = flow {
-        emit(pokedexApiService.getPokemonEvolutionChainData(id))
-    }
+    suspend fun fetchPokemonEvolutionChainData(id: String) =
+        pokedexApiService.getPokemonEvolutionChainData(id)
 }
