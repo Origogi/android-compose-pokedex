@@ -58,7 +58,9 @@ fun PokemonSmallCard(cardInfo: PokemonCardInfo) {
                 AsyncImage(
                     model = cardInfo.imageUrl,
                     contentDescription = "",
-                    modifier = Modifier.size(96.dp, 74.dp).padding(4.dp)
+                    modifier = Modifier
+                        .size(96.dp, 74.dp)
+                        .padding(4.dp)
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
