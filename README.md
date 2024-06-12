@@ -16,7 +16,7 @@ This Pokedex app was built using Android Compose, allowing users to explore and 
 
 [Creator Profile](https://www.linkedin.com/in/junior-saraiva/)
 
-## Screenshots![iShot_2024-06-11_21 52 42]()
+## Screenshots
 
 <div align="center">
     <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/1ac3c65c-32d6-4d24-a877-e03e1a26dbc3" width="25%">
@@ -48,6 +48,17 @@ Filter Pokémon by type, sort Pokémon by name, number was disabled because of t
 ![](https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png)
 
 [PokeAPI](https://pokeapi.co/) is a RESTful Pokémon API that provides a lot of Pokémon data, including Pokémon, moves, abilities, types, and more.
+
+## Libraries
+
+### Hilt
+Hilt is a dependency injection library for Android that simplifies Dagger setup. It provides a standard way to manage dependencies in Android apps, making your code more modular, testable, and maintainable. Hilt handles the lifecycle of components and supports scoped bindings for different Android classes such as Activities, Fragments, and ViewModels.
+
+### Coil
+Coil (Coroutine Image Loader) is a lightweight and efficient image loading library for Android, backed by Kotlin Coroutines. It supports image caching, transformations, and animations. Coil integrates seamlessly with Jetpack Compose and traditional Android Views, providing a flexible API to load images from various sources like URLs, resources, and files.
+
+### Retrofit
+Retrofit is a type-safe HTTP client for Android and Java, simplifying the interaction with RESTful web services. It uses annotations to define API endpoints and supports various converters to handle different data formats such as JSON and XML. Retrofit integrates with OkHttp for network operations and supports synchronous and asynchronous request execution, making it a versatile tool for handling network communication.
 
 ## Architecture
 
