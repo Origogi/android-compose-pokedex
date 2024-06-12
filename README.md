@@ -20,8 +20,8 @@ This Pokedex app was built using Android Compose, allowing users to explore and 
 
 <div align="center">
     <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/1ac3c65c-32d6-4d24-a877-e03e1a26dbc3" width="25%">
-    <img src="https://github.com/Origogi/ios-swiftui-pokedex/assets/35194820/17d6d728-4e28-42ea-aff7-8a358d4da1c5" width="25%">
-    <img src="https://github.com/Origogi/ios-swiftui-pokedex/assets/35194820/2d9cde3f-7329-4f99-b96b-2e36958b30a7" width="25%">
+    <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/ba01a0e3-a5de-4757-8fd0-61848c889924" width="25%">
+    <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/c9daa5ac-481d-47fd-9f01-86994aebd9ab" width="25%">
 
 </div>
 <div align="center">
