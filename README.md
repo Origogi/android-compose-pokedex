@@ -16,7 +16,7 @@ This Pokedex app was built using Android Compose, allowing users to explore and 
 
 [Creator Profile](https://www.linkedin.com/in/junior-saraiva/)
 
-## Screenshots
+## Screenshots![iShot_2024-06-11_21 52 42]()
 
 <div align="center">
     <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/1ac3c65c-32d6-4d24-a877-e03e1a26dbc3" width="25%">
@@ -25,8 +25,8 @@ This Pokedex app was built using Android Compose, allowing users to explore and 
 
 </div>
 <div align="center">
-    <img src="https://github.com/Origogi/ios-swiftui-pokedex/assets/35194820/c77378a7-3058-4385-ab7a-6d62ef2dcb78" width="25%">
-    <img src="https://github.com/Origogi/Origogi/assets/35194820/8b55fb8a-0236-4108-a70f-c73c948aaa76" width="25%">
+    <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/30b1cc3c-ff05-456f-a5a5-a23a04de6723" width="25%">
+    <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/b4a822f0-1af4-4a2e-9963-4e52a9465c40" width="25%">
     <img src="https://github.com/Origogi/android-compose-pokedex/assets/35194820/3eedd2fd-1c7c-4545-91cf-6c09d78d267b" width="25%">
 </div>
 <div align="center">
