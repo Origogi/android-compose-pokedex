@@ -68,3 +68,9 @@ Retrofit is a type-safe HTTP client for Android and Java, simplifying the intera
 <div>
     <img src="https://github.com/Origogi/Origogi/assets/35194820/7074b560-0972-4880-a591-de4b88e7996f" width="80%">
 </div>
+
+## Appendix
+
+[Other Mobile Platform](https://github.com/Origogi/mobile-declarative-pokedex-app?tab=readme-ov-file#plateform)
+
+
