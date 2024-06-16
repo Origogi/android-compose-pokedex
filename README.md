@@ -38,7 +38,7 @@ This Pokedex app was built using Android Compose, allowing users to explore and 
 ## Features
 
 - Filter Pokémon by generation
-- Display poekmon detail informnation
+- Display pokemon detail information
 - Favorite Pokémon
 - Unlimited scrolling
 
