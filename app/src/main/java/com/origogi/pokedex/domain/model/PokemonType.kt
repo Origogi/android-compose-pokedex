@@ -4,10 +4,10 @@ import androidx.compose.ui.graphics.Color
 import com.origogi.pokedex.R
 
 enum class PokemonType(
-    val iconAssetId : Int,
-    val color : Color,
-    val bgColor : Color,
-    val label : String
+    val iconAssetId: Int,
+    val color: Color,
+    val bgColor: Color,
+    val label: String
 ) {
     Fire(
         iconAssetId = R.drawable.icon_type_fire,
@@ -71,14 +71,14 @@ enum class PokemonType(
         label = "Fairy"
     ),
 
-     Normal(
+    Normal(
         iconAssetId = R.drawable.icon_type_normal,
         color = Color(0xFF919AA2),
         bgColor = Color(0xFFF1F2F3),
         label = "Normal"
     ),
 
-    Fighting (
+    Fighting(
         iconAssetId = R.drawable.icon_type_fighting,
         color = Color(0xFFCE416B),
         bgColor = Color(0xFFF8E9EE),
@@ -92,14 +92,14 @@ enum class PokemonType(
         label = "Flying"
     ),
 
-     Poison(
+    Poison(
         iconAssetId = R.drawable.icon_type_poison,
         color = Color(0xFFB567CE),
         bgColor = Color(0xFFF5EDF8),
         label = "Poison"
     ),
 
-     Ground (
+    Ground(
         iconAssetId = R.drawable.icon_type_ground,
         color = Color(0xFFD97845),
         bgColor = Color(0xFFF9EFEA),
